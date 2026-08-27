@@ -1,0 +1,6 @@
+{
+  "name": "Convention Permis",
+  "description": "Auto-école Convention Permis — Formations complètes, permis B, boîte automatique, conduite accompagnée et moto.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
