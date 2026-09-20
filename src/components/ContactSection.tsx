@@ -236,7 +236,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
                 <div className="text-zinc-200 text-sm font-medium leading-relaxed">
                   <div className="flex gap-2">
                     <span className="w-20">Lun – Ven :</span>
-                    <span>09h00 – 20h00</span>
+                    <span>12h00 – 20h00</span>
                   </div>
                   <div className="flex gap-2">
                     <span className="w-20">Samedi :</span>

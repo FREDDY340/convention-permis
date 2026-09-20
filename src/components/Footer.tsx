@@ -53,27 +53,27 @@ export const Footer: React.FC<FooterProps> = ({
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Instagram"
-                className="w-9 h-9 rounded-md bg-[#111115] border border-white/5 flex items-center justify-center hover:bg-[#ff4d00]/10 hover:border-[#ff4d00]/50 hover:text-[#ff4d00] transition-colors"
+                className="w-[2.7rem] h-[2.7rem] rounded-md bg-[#111115] border border-white/5 flex items-center justify-center hover:bg-[#ff4d00]/10 hover:border-[#ff4d00]/50 hover:text-[#ff4d00] transition-colors"
               >
-                <Instagram className="w-4 h-4" />
+                <Instagram className="w-[1.2rem] h-[1.2rem]" />
               </a>
               <a 
                 href="https://www.facebook.com/profile.php?id=61592054589422" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Facebook"
-                className="w-9 h-9 rounded-md bg-[#111115] border border-white/5 flex items-center justify-center hover:bg-[#ff4d00]/10 hover:border-[#ff4d00]/50 hover:text-[#ff4d00] transition-colors"
+                className="w-[2.7rem] h-[2.7rem] rounded-md bg-[#111115] border border-white/5 flex items-center justify-center hover:bg-[#ff4d00]/10 hover:border-[#ff4d00]/50 hover:text-[#ff4d00] transition-colors"
               >
-                <Facebook className="w-4 h-4" />
+                <Facebook className="w-[1.2rem] h-[1.2rem]" />
               </a>
               <a 
                 href="https://www.tiktok.com/@convention.permis" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="TikTok"
-                className="w-9 h-9 rounded-md bg-[#111115] border border-white/5 flex items-center justify-center hover:bg-[#ff4d00]/10 hover:border-[#ff4d00]/50 hover:text-[#ff4d00] transition-colors"
+                className="w-[2.7rem] h-[2.7rem] rounded-md bg-[#111115] border border-white/5 flex items-center justify-center hover:bg-[#ff4d00]/10 hover:border-[#ff4d00]/50 hover:text-[#ff4d00] transition-colors"
               >
-                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-[1.2rem] h-[1.2rem] fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 2.22-1.15 4.39-2.92 5.74-1.76 1.34-4.04 1.83-6.2 1.43-2.15-.4-4.08-1.74-5.23-3.55-1.14-1.81-1.39-4.14-.65-6.14.73-2.02 2.37-3.66 4.36-4.42 2-.77 4.29-.77 6.27.02v4.06c-1.28-.61-2.88-.63-4.08.06-1.2.7-1.92 2.06-1.8 3.42.12 1.35 1.05 2.59 2.27 3.12 1.22.53 2.7.35 3.78-.45 1.08-.81 1.67-2.13 1.67-3.49V.02z" />
                 </svg>
               </a>
