@@ -60,7 +60,7 @@ export const VehicleScrollCinematic: React.FC<VehicleScrollCinematicProps> = ({
 
     const frameUrl = (index: number) => {
       const padded = String(index).padStart(3, '0');
-      return `/frames/${folderName}/ezgif-frame-${padded}.jpg`;
+      return `${import.meta.env.BASE_URL}frames/${folderName}/ezgif-frame-${padded}.jpg`;
     };
 
     let loadedCount = 0;

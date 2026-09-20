@@ -48,7 +48,7 @@ export const ClioScrollThumbnail: React.FC<ScrollThumbnailProps> = ({
 
     const frameUrl = (index: number) => {
       const padded = String(index).padStart(3, '0');
-      return `/frames/${folderName}/ezgif-frame-${padded}.jpg`;
+      return `${import.meta.env.BASE_URL}frames/${folderName}/ezgif-frame-${padded}.jpg`;
     };
 
     const firstImg = new Image();
