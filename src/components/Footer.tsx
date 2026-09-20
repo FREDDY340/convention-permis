@@ -179,11 +179,11 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-3.5 text-sm">
               <li>
                 <a 
-                  href="tel:0145301515" 
+                  href="tel:0699774576"
                   className="flex items-center gap-3 text-zinc-300 hover:text-white group transition-colors"
                 >
                   <Phone className="w-4 h-4 text-[#ff4d00] group-hover:scale-110 transition-transform shrink-0" />
-                  <span className="group-hover:underline">01 45 30 15 15</span>
+                  <span className="group-hover:underline">06 99 77 45 76</span>
                 </a>
               </li>
               <li>

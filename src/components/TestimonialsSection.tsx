@@ -195,7 +195,7 @@ export const TestimonialsSection: React.FC = () => {
                 ))}
               </div>
               <span className="text-white text-sm font-bold">4.9 / 5</span>
-              <span className="text-zinc-500 text-sm">• +350 avis certifiés</span>
+              <span className="text-zinc-500 text-sm">• 61 avis certifiés</span>
             </div>
             <motion.h2 
               variants={itemVariants}

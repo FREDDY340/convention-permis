@@ -49,7 +49,7 @@ export const TrustCardsBanner: React.FC<{ className?: string }> = ({ className =
               </div>
             </div>
             <span className="text-zinc-300 text-xs sm:text-[13px] font-medium tracking-tight mt-1 whitespace-nowrap">
-              sur Google <span className="text-zinc-400 text-xs">(+230 avis)</span>
+              sur Google <span className="text-zinc-400 text-xs">(61 avis)</span>
             </span>
           </div>
         </div>

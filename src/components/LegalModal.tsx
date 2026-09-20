@@ -131,7 +131,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                     <ul className="list-disc list-inside space-y-1 text-zinc-400 pl-2">
                       <li><strong>Siège social :</strong> 122 rue de l'Abbé Groult, 75015 Paris</li>
                       <li><strong>Numéro d'agrément préfectoral :</strong> E2037500010</li>
-                      <li><strong>Téléphone :</strong> 01 45 30 15 15</li>
+                      <li><strong>Téléphone :</strong> 06 99 77 45 76</li>
                       <li><strong>Email :</strong> contact@convention-permis.fr</li>
                       <li><strong>Directeur de la publication :</strong> Direction Convention Permis</li>
                     </ul>
