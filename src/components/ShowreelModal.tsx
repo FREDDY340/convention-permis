@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, Play, ShieldCheck, Sparkles } from 'lucide-react';
+import showreelVideo from '../assets/videos/showreel.mp4';
 
 interface ShowreelModalProps {
   isOpen: boolean;
@@ -50,10 +51,7 @@ export const ShowreelModal: React.FC<ShowreelModalProps> = ({ isOpen, onClose })
             playsInline
             className="absolute inset-0 w-full h-full object-cover object-center opacity-40 pointer-events-none"
           >
-            <source
-              src="https://res.cloudinary.com/ucmjjrcj/video/upload/v1786975611/kling_20260817_Image_to_Video_The_camera_5633_0.mov"
-              type="video/mp4"
-            />
+            <source src={showreelVideo} type="video/mp4" />
           </video>
 
           {/* Central presentation graphic */}

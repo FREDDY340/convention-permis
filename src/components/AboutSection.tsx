@@ -6,6 +6,7 @@ import sophieImg from '../assets/images/team_sophie.jpg';
 import thomasImg from '../assets/images/team_thomas.jpg';
 import camilleImg from '../assets/images/team_camille.jpg';
 import nicolasImg from '../assets/images/team_nicolas.jpg';
+import videoPrez from '../assets/videos/video-prez.mp4';
 
 interface AboutSectionProps {
   onNavigate: (sectionId: string) => void;
@@ -123,14 +124,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
               preload="auto"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
             >
-              <source
-                src="https://res.cloudinary.com/ucmjjrcj/video/upload/v1787835543/video-prez.mov"
-                type="video/quicktime"
-              />
-              <source
-                src="https://res.cloudinary.com/ucmjjrcj/video/upload/v1787835543/video-prez.mov"
-                type="video/mp4"
-              />
+              <source src={videoPrez} type="video/mp4" />
             </video>
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />

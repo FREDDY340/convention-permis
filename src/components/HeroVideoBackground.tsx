@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import defaultHeroVideo from '../assets/videos/hero-background.mp4';
 
 interface HeroVideoBackgroundProps {
   videoUrl?: string;
@@ -6,7 +7,7 @@ interface HeroVideoBackgroundProps {
 }
 
 export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
-  videoUrl = 'https://res.cloudinary.com/ucmjjrcj/video/upload/v1787130220/kling_20260819_Image_to_Video__a_cinemat_1481_0.mp4',
+  videoUrl = defaultHeroVideo,
   className = '',
 }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -68,8 +69,6 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
     }
   }, []);
 
-  const movUrl = videoUrl.replace(/\.mp4$/, '.mov');
-
   return (
     <div
       className={`absolute inset-0 w-full h-full overflow-hidden pointer-events-none ${className}`}
@@ -89,7 +88,6 @@ export const HeroVideoBackground: React.FC<HeroVideoBackgroundProps> = ({
         }`}
       >
         <source src={videoUrl} type="video/mp4" />
-        <source src={movUrl} type="video/quicktime" />
       </video>
 
       {/* Cinematic Grading & Vignette Overlays */}
