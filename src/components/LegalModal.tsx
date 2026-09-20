@@ -126,13 +126,13 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                       1. Éditeur du site
                     </h3>
                     <p>
-                      Le site internet <strong>convention-permis.fr</strong> est édité par la société <strong>Convention Permis SAS</strong>, auto-école agréée par la Préfecture de Police de Paris.
+                      Le site internet <strong>conventionpermis.fr</strong> est édité par la société <strong>Convention Permis SAS</strong>, auto-école agréée par la Préfecture de Police de Paris.
                     </p>
                     <ul className="list-disc list-inside space-y-1 text-zinc-400 pl-2">
                       <li><strong>Siège social :</strong> 122 rue de l'Abbé Groult, 75015 Paris</li>
                       <li><strong>Numéro d'agrément préfectoral :</strong> E2037500010</li>
                       <li><strong>Téléphone :</strong> 06 99 77 45 76</li>
-                      <li><strong>Email :</strong> contact@convention-permis.fr</li>
+                      <li><strong>Email :</strong> contact@conventionpermis.fr</li>
                       <li><strong>Directeur de la publication :</strong> Direction Convention Permis</li>
                     </ul>
                   </section>
@@ -192,7 +192,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                       3. Vos droits
                     </h3>
                     <p>
-                      Vous disposez d’un droit d’accès, de rectification, de suppression et de portabilité de vos données. Pour exercer ce droit, contactez-nous à : <a href="mailto:contact@convention-permis.fr" className="text-[#ff4d00] hover:underline">contact@convention-permis.fr</a>.
+                      Vous disposez d’un droit d’accès, de rectification, de suppression et de portabilité de vos données. Pour exercer ce droit, contactez-nous à : <a href="mailto:contact@conventionpermis.fr" className="text-[#ff4d00] hover:underline">contact@conventionpermis.fr</a>.
                     </p>
                   </section>
                 </div>

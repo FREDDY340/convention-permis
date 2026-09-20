@@ -188,11 +188,11 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <a 
-                  href="mailto:contact@convention-permis.fr" 
+                  href="mailto:contact@conventionpermis.fr"
                   className="flex items-center gap-3 text-zinc-300 hover:text-white group transition-colors"
                 >
                   <Mail className="w-4 h-4 text-[#ff4d00] group-hover:scale-110 transition-transform shrink-0" />
-                  <span className="group-hover:underline break-all">contact@convention-permis.fr</span>
+                  <span className="group-hover:underline break-all">contact@conventionpermis.fr</span>
                 </a>
               </li>
               <li>

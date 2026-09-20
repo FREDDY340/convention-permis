@@ -212,7 +212,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
               
               <motion.div variants={itemVariants} className="flex items-start gap-4">
                 <Mail className="w-5 h-5 text-[#ff4d00] shrink-0 mt-0.5" />
-                <span className="text-zinc-200 text-sm font-medium break-all">contact@convention-permis.fr</span>
+                <span className="text-zinc-200 text-sm font-medium break-all">contact@conventionpermis.fr</span>
               </motion.div>
 
               <motion.div variants={itemVariants} className="flex items-start gap-4">
