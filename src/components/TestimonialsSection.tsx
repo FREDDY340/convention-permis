@@ -1,12 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Star, CheckCircle2, Quote } from 'lucide-react';
 import { motion } from 'motion/react';
-import avatarLucas from '../assets/images/avatar_lucas.jpg';
-import avatarEmma from '../assets/images/avatar_emma.jpg';
-import avatarYanis from '../assets/images/avatar_yanis.jpg';
-import avatarSophie from '../assets/images/avatar_sophie.jpg';
-import avatarThomas from '../assets/images/avatar_thomas.jpg';
-import avatarCamille from '../assets/images/team_camille.jpg';
 
 interface Review {
   id: number;
@@ -18,60 +12,90 @@ interface Review {
   rating: number;
 }
 
+// Real reviews from Convention Permis' Google Business Profile (4.9/5, 61 avis).
+// No photo avatars are used for real reviewers — ReviewAvatar falls back to
+// initials automatically when `avatar` is empty.
 const REVIEWS: Review[] = [
   {
     id: 1,
-    name: 'Lucas D.',
-    formation: 'Permis B',
-    date: 'Il y a 3 jours',
+    name: 'Ismail',
+    formation: 'Avis Google',
+    date: 'Il y a 2 mois',
     rating: 5,
-    text: "Une équipe au top, à l'écoute et super pédagogique. J'ai obtenu mon permis du premier coup avec 29/31 !",
-    avatar: avatarLucas,
+    text: "Je recommande vivement Convention Permis Paris 15 ! Un grand merci à toute l'équipe pour leur professionnalisme et leur gentillesse. Les moniteurs sont vraiment incroyables : patients, pédagogues et toujours à l'écoute. Grâce à eux, j'ai énormément appris et j'ai pris confiance au volant.",
+    avatar: '',
   },
   {
     id: 2,
-    name: 'Emma T.',
-    formation: 'Conduite accompagnée (AAC)',
-    date: 'Il y a 1 semaine',
+    name: 'vinc norid',
+    formation: 'Avis Google',
+    date: 'Il y a 2 mois',
     rating: 5,
-    text: "Ambiance géniale et conseils exceptionnels pour devenir une conductrice confiante. Un grand merci à toute l'équipe !",
-    avatar: avatarEmma,
+    text: "Superbe auto-école ! Des moniteurs respectueux, à l'écoute et très pédagogues. L'accueil des élèves est chaleureux et l'ambiance est détendue, ce qui permet d'apprendre à conduire dans de très bonnes conditions.",
+    avatar: '',
   },
   {
     id: 3,
-    name: 'Yanis M.',
-    formation: 'Permis Moto A2',
-    date: 'Il y a 2 semaines',
+    name: 'Nouhad Chirine Ayad',
+    formation: 'Avis Google',
+    date: 'Il y a 6 mois',
     rating: 5,
-    text: 'Formation complète, moniteur passionné et moto au top (Yamaha MT-07). Plateau et circu validés du 1er coup !',
-    avatar: avatarYanis,
+    text: "Super auto école, moniteur au top, équipe très pédagogique et à l'écoute de ses élèves. Grand + pour la flexibilité pour placer nos heures de conduite et merci à la secrétaire pour son accueil chaleureux.",
+    avatar: '',
   },
   {
     id: 4,
-    name: 'Sophie L.',
-    formation: 'Boîte Automatique (BEA)',
-    date: 'Il y a 3 semaines',
+    name: 'iyad',
+    formation: 'Avis Google',
+    date: 'Il y a 2 mois',
     rating: 5,
-    text: "Des moniteurs ultra patients et un suivi sur-mesure. J'ai totalement vaincu mon stress au volant grâce à vous.",
-    avatar: avatarSophie,
+    text: 'Auto école très professionnel avec des moniteurs très sympathiques et pédagogues. Une secrétaire au top, super gentille et qui veut le bien et la réussite de ses élèves !',
+    avatar: '',
   },
   {
     id: 5,
-    name: 'Thomas B.',
-    formation: 'Permis B Accéléré',
-    date: 'Il y a 1 mois',
+    name: 'theva sriram',
+    formation: 'Avis Google',
+    date: 'Il y a 2 mois',
     rating: 5,
-    text: 'Accueil génial et planning 100% adapté à mes disponibilités étudiantes. Permis en poche en 4 semaines !',
-    avatar: avatarThomas,
+    text: "Super auto-école avec une secrétaire incroyablement bienveillante et à l'écoute ! Les moniteurs sont vraiment pédagogues et gentils, franchement je la conseille à tout le monde !",
+    avatar: '',
   },
   {
     id: 6,
-    name: 'Camille R.',
-    formation: 'Permis B',
-    date: 'Il y a 1 mois',
+    name: 'Zumaa Gds',
+    formation: 'Avis Google',
+    date: 'Il y a 2 mois',
     rating: 5,
-    text: 'Pédagogie bienveillante, simulateur moderne et voitures récentes très agréables à conduire. Je recommande à 100% !',
-    avatar: avatarCamille,
+    text: 'Très bonne auto-école ! Merci à Houari et Rayan pour leur gentillesse, leur patience et leurs précieux conseils. Je recommande sans hésiter !',
+    avatar: '',
+  },
+  {
+    id: 7,
+    name: 'yacine hadj hacene',
+    formation: 'Avis Google',
+    date: 'Il y a 6 mois',
+    rating: 5,
+    text: "Une auto école au top ! Un accueil génial dès que vous rentrez, on vous met ultra à l'aise et on vous renseigne sur tout. Je recommande à fond, et au niveau des prix c'est incroyable.",
+    avatar: '',
+  },
+  {
+    id: 8,
+    name: 'Amar Bouizegarene',
+    formation: 'Avis Google',
+    date: 'Il y a 2 mois',
+    rating: 5,
+    text: "Je me suis senti écouté et compris, des gens adorables, sages et à l'écoute, c'est très important. Après avoir fait toutes mes heures de conduite chez eux, je suis bien placé pour en parler.",
+    avatar: '',
+  },
+  {
+    id: 9,
+    name: 'abdelhakim boujnane',
+    formation: 'Avis Google',
+    date: 'Il y a 6 mois',
+    rating: 5,
+    text: "Au top, très bien accueilli. Une équipe à l'écoute et qui est prête à nous aider. Je recommande à 100 % !",
+    avatar: '',
   },
 ];
 
@@ -99,7 +123,7 @@ interface AvatarProps {
 }
 
 const ReviewAvatar: React.FC<AvatarProps> = ({ src, name }) => {
-  const [hasError, setHasError] = useState(false);
+  const [hasError, setHasError] = useState(!src);
   const initials = name
     .split(' ')
     .map(n => n[0])
