@@ -16,6 +16,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   const certifications = [
     'Permis B',
+    'Boîte manuelle',
     'Boîte automatique',
     'Conduite accompagnée',
     'Moto A2',
