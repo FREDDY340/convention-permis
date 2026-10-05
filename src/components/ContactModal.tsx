@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { X, Send, CheckCircle2, Mail, MessageSquare, User, Phone } from 'lucide-react';
+import { sendLead } from '../lib/sendLead';
+import { CALLBACK_DELAY, PHONE_DISPLAY, PHONE_TEL, STUDENT_DISCOUNT, formatEuros } from '../data/tarifs';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -8,23 +10,42 @@ interface ContactModalProps {
 
 export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) => {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState(false);
   const [formState, setFormState] = useState({
     name: '',
     email: '',
     phone: '',
     formation: 'Permis B (Boîte manuelle)',
     message: '',
+    student: false,
   });
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      onClose();
-    }, 2000);
+    setSending(true);
+    setError(false);
+    try {
+      await sendLead(
+        {
+          Nom: formState.name,
+          Email: formState.email,
+          Téléphone: formState.phone,
+          Formation: formState.formation,
+          Étudiant: formState.student,
+          Message: formState.message,
+          _replyto: formState.email,
+        },
+        `Demande d'évaluation site : ${formState.name}`
+      );
+      setSubmitted(true);
+    } catch {
+      setError(true);
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -40,6 +61,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
       >
         <button
           id="close-contact-modal"
+          aria-label="Fermer"
           onClick={onClose}
           className="absolute top-5 right-5 p-2 rounded-lg text-zinc-500 hover:text-zinc-900 hover:bg-zinc-800 transition-colors"
         >
@@ -55,7 +77,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               DEMANDE ENVOYÉE AVEC SUCCÈS
             </h3>
             <p className="text-zinc-600 text-sm max-w-xs">
-              Merci ! Un conseiller de Convention Permis vous recontactera sous 24h pour planifier votre évaluation de départ.
+              Merci ! Un conseiller de Convention Permis vous recontactera {CALLBACK_DELAY} pour planifier votre évaluation de départ.
             </p>
           </div>
         ) : (
@@ -69,7 +91,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 RÉSERVER UNE ÉVALUATION
               </h2>
               <p className="text-zinc-500 text-xs mt-1">
-                Faites le premier pas vers votre permis. Éligible financement CPF et 1€ par jour.
+                Faites le premier pas vers votre permis. Paiement en 3x ou 4x.
               </p>
             </div>
 
@@ -140,8 +162,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   <option value="Permis Boîte Automatique">Permis Boîte Automatique</option>
                   <option value="Conduite Accompagnée (AAC)">Conduite Accompagnée (AAC)</option>
                   <option value="Permis Moto A2">Permis Moto A2</option>
-                  <option value="Stage Accéléré">Stage Permis Accéléré</option>
-                  <option value="Code en Ligne">Code de la route en ligne</option>
+                  <option value="Pack accéléré">Pack accéléré (permis B)</option>
                 </select>
               </div>
 
@@ -153,7 +174,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   <MessageSquare className="w-4 h-4 text-zinc-500 absolute left-3.5 top-3" />
                   <textarea
                     rows={2}
-                    placeholder="Vos disponibilités ou questions sur le financement..."
+                    placeholder="Vos disponibilités ou vos questions..."
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                     className="w-full bg-white border border-zinc-200/80 rounded-xl pl-10 pr-4 py-2 text-sm text-zinc-900 placeholder-zinc-500 focus:outline-none focus:border-[#ff4d00] focus:ring-1 focus:ring-[#ff4d00] transition-colors resize-none"
@@ -161,12 +182,29 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 </div>
               </div>
 
+              <label className="flex items-center gap-2.5 text-sm text-zinc-700 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formState.student}
+                  onChange={(e) => setFormState({ ...formState, student: e.target.checked })}
+                  className="w-4 h-4 accent-[#ff4d00]"
+                />
+                Je suis étudiant(e) : {formatEuros(STUDENT_DISCOUNT)} de remise sur le permis B, sur justificatif
+              </label>
+
+              {error && (
+                <p role="alert" className="text-sm text-red-600">
+                  L'envoi n'a pas abouti. Réessayez ou appelez le <a href={`tel:${PHONE_TEL}`} className="underline">{PHONE_DISPLAY}</a>.
+                </p>
+              )}
+
               <button
                 type="submit"
+                disabled={sending}
                 id="submit-contact-form"
                 className="w-full mt-2 py-3 px-6 rounded-xl bg-[#ff4d00] hover:bg-[#ff5e1a] text-black font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,77,0,0.4)] transition-all cursor-pointer"
               >
-                <span>Envoyer ma demande</span>
+                <span>{sending ? 'Envoi en cours…' : 'Envoyer ma demande'}</span>
                 <Send className="w-4 h-4" />
               </button>
             </form>

@@ -4,28 +4,10 @@ export const BrandLogos: React.FC = () => {
   return (
     <div id="trusted-brands-strip" className="pt-1 flex flex-col gap-2.5">
       <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-zinc-500 font-semibold">
-        FINANCEMENTS & CERTIFICATIONS OFFICIELLES
+        AGRÉMENT & SERVICES
       </span>
 
       <div className="flex items-center flex-wrap gap-4 sm:gap-6 text-zinc-600">
-        {/* CPF Financement Badge */}
-        <div
-          id="badge-cpf"
-          className="px-2.5 py-1 rounded border border-zinc-600/80 flex items-center justify-center font-extrabold text-[11px] tracking-wider text-zinc-200 hover:border-[#ff4d00] hover:text-[#ff4d00] transition-colors cursor-default select-none bg-white/60"
-          title="Mon Compte Formation (CPF)"
-        >
-          CPF
-        </div>
-
-        {/* Permis à 1€ par jour Badge */}
-        <div
-          id="badge-permis-1-euro"
-          className="px-2.5 py-1 rounded border border-zinc-600/80 flex items-center justify-center font-extrabold text-[11px] tracking-wider text-zinc-200 hover:border-[#ff4d00] hover:text-[#ff4d00] transition-colors cursor-default select-none bg-white/60"
-          title="Permis à 1€ par jour"
-        >
-          1€ / JOUR
-        </div>
-
         {/* ANTS */}
         <div
           id="badge-ants"

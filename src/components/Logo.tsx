@@ -1,5 +1,5 @@
 import React from 'react';
-import logoImg from '../assets/images/logo-convention-permis-transparent-v3.png';
+import logoImg from '../assets/images/logo-convention-permis-transparent-v3.webp';
 
 export const Logo: React.FC<{ className?: string; size?: 'sm' | 'md' | 'lg' }> = ({
   className = '',

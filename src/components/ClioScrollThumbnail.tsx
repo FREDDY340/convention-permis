@@ -151,7 +151,7 @@ export const ClioScrollThumbnail: React.FC<ScrollThumbnailProps> = ({
       className={`relative w-full h-full overflow-hidden bg-[#0e0e11] select-none ${className}`}
     >
       {fallbackImage && (
-        <img
+        <img loading="lazy" decoding="async"
           src={fallbackImage}
           alt="Formation véhicule"
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
@@ -170,10 +170,6 @@ export const ClioScrollThumbnail: React.FC<ScrollThumbnailProps> = ({
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-black/25 pointer-events-none" />
 
-      <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] uppercase font-bold tracking-widest text-[#ff4d00] pointer-events-none shadow-lg">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#ff4d00] animate-pulse" />
-        <span>3D Scroll</span>
-      </div>
     </div>
   );
 };

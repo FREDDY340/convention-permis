@@ -96,12 +96,6 @@ export const Footer: React.FC<FooterProps> = ({
               À propos de nous
             </button>
             <button 
-              onClick={() => onNavigate('team')} 
-              className="text-left text-sm hover:text-white transition-colors cursor-pointer"
-            >
-              L'équipe
-            </button>
-            <button 
               onClick={() => onOpenShowroom()} 
               className="text-left text-sm hover:text-white transition-colors cursor-pointer"
             >

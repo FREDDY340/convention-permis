@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Trophy, ShieldCheck, Compass, Star } from 'lucide-react';
+import { ShieldCheck, Compass, Star } from 'lucide-react';
 
 export const TrustCardsBanner: React.FC<{ className?: string }> = ({ className = '' }) => {
   return (
@@ -54,28 +54,7 @@ export const TrustCardsBanner: React.FC<{ className?: string }> = ({ className =
           </div>
         </div>
 
-        {/* 2. Taux de réussite */}
-        <div
-          id="trust-item-reussite"
-          className="flex items-center gap-3 shrink-0 pr-4 sm:pr-6 lg:pr-8 border-r border-white/15"
-        >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0 text-[#ff4d00]">
-            <Trophy className="w-7 h-7 sm:w-8 sm:h-8 stroke-[2.2]" />
-          </div>
-          <div className="flex flex-col justify-center">
-            <span className="text-zinc-400 text-[11px] sm:text-xs font-semibold leading-tight whitespace-nowrap">
-              Taux de réussite
-            </span>
-            <span className="text-white font-black text-base sm:text-lg tracking-tight leading-tight whitespace-nowrap">
-              98 %
-            </span>
-            <span className="text-zinc-400 text-[10px] sm:text-[11px] leading-tight whitespace-nowrap">
-              au 1er passage
-            </span>
-          </div>
-        </div>
-
-        {/* 3. Agrément n° */}
+        {/* 2. Agrément n° */}
         <div
           id="trust-item-agrement"
           className="flex items-center gap-3 shrink-0 pr-4 sm:pr-6 lg:pr-8 border-r border-white/15"
@@ -96,35 +75,7 @@ export const TrustCardsBanner: React.FC<{ className?: string }> = ({ className =
           </div>
         </div>
 
-        {/* 4. Qualiopi */}
-        <div
-          id="trust-item-qualiopi"
-          className="flex items-center gap-3 shrink-0 pr-4 sm:pr-6 lg:pr-8 border-r border-white/15"
-        >
-          {/* Qualiopi SVG Emblem */}
-          <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shrink-0">
-            <div className="flex flex-col items-center justify-center">
-              <span className="text-[12px] sm:text-[13px] font-black tracking-tight text-zinc-900 leading-none">
-                Quali<span className="text-[#ff4d00]">opi</span>
-              </span>
-              <div className="flex items-center gap-0.5 mt-1">
-                <span className="w-1.5 h-1.5 bg-[#4285F4] rotate-45" />
-                <span className="w-1.5 h-1.5 bg-[#ff4d00] rotate-45" />
-                <span className="w-1.5 h-1.5 bg-white rotate-45" />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col justify-center">
-            <span className="text-white font-extrabold text-sm sm:text-base tracking-tight leading-tight whitespace-nowrap">
-              Certification Qualiopi
-            </span>
-            <span className="text-zinc-400 text-[11px] sm:text-xs font-medium leading-tight mt-0.5 whitespace-nowrap">
-              processus certifié
-            </span>
-          </div>
-        </div>
-
-        {/* 5. Accompagnement personnalisé */}
+        {/* 3. Accompagnement personnalisé */}
         <div
           id="trust-item-accompagnement"
           className="flex items-center gap-3 shrink-0"

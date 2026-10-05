@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Logo } from './Logo';
-import { Menu, X } from 'lucide-react';
+import { Phone, Menu, X } from 'lucide-react';
+import { PHONE_DISPLAY, PHONE_TEL, STUDENT_DISCOUNT, formatEuros } from '../data/tarifs';
 
 interface NavbarProps {
   activeSection: string;
@@ -28,7 +29,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navItems = [
     { label: 'Accueil', id: 'home' },
     { label: 'À propos de nous', id: 'about' },
-    { label: "L'équipe", id: 'team' },
     { label: 'Le Showroom', id: 'showroom' },
     { label: 'Nos formations', id: 'formations' },
     { label: 'Nos véhicules', id: 'vehicules' },
@@ -46,6 +46,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         ? 'bg-[#09090b]/95 backdrop-blur-xl border-b border-white/10 py-1 shadow-2xl'
         : 'bg-transparent py-0'
     }`}>
+      <button
+        type="button"
+        id="student-promo-banner"
+        onClick={() => handleItemClick('formations')}
+        className="w-full bg-[#ff4d00] text-white text-xs sm:text-sm font-semibold py-1.5 px-4 text-center hover:bg-[#ff5e1a] transition-colors"
+      >
+        Offre étudiante : {formatEuros(STUDENT_DISCOUNT)} de remise sur le permis B, sur justificatif. Voir les tarifs
+      </button>
       <div className="w-full px-4 md:px-8 h-20 flex items-center justify-between">
         {/* Brand Logo */}
         <Logo />
@@ -82,6 +90,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right CTA Area */}
         <div className="hidden sm:flex items-center gap-4">
+          <a
+            href={`tel:${PHONE_TEL}`}
+            className="flex items-center gap-2 text-sm font-semibold text-zinc-200 hover:text-[#ff4d00] transition-colors"
+          >
+            <Phone className="w-4 h-4 text-[#ff4d00]" />
+            {PHONE_DISPLAY}
+          </a>
         </div>
 
         {/* Mobile menu trigger */}
@@ -89,7 +104,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           id="mobile-menu-toggle-btn"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="md:hidden p-2.5 rounded-xl text-zinc-200 bg-white/5 border border-white/10 hover:text-[#ff4d00] hover:bg-white/10 focus:outline-none transition-colors"
-          aria-label="Toggle menu"
+          aria-label={mobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-expanded={mobileMenuOpen}
         >
           {mobileMenuOpen ? <X className="w-6 h-6 text-[#ff4d00]" /> : <Menu className="w-6 h-6" />}
         </button>

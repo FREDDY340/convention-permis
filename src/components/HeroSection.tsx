@@ -73,6 +73,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             className="space-y-0.5"
           >
             <h1 className="font-['Arial'] font-black tracking-[-0.02em] uppercase text-white leading-[0.92] text-4xl sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[6rem]">
+              <span className="block text-base sm:text-lg md:text-xl tracking-[0.18em] text-zinc-300 font-bold mb-3 leading-tight">Auto-école à Paris 15e :</span>
               <span className="block">PRENEZ LE VOLANT</span>
               <span className="block">
                 DE VOTRE{' '}

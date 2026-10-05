@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Settings, Gauge, ArrowRight, Sparkles } from 'lucide-react';
-import formationBManuelle from '../assets/images/formation_b_manuelle.png';
-import formationBAuto from '../assets/images/formation_b_auto.png';
-import formationMotoA2 from '../assets/images/formation_moto_a2.png';
+import formationBManuelle from '../assets/images/formation_b_manuelle.webp';
+import formationBAuto from '../assets/images/formation_b_auto.webp';
+import formationMotoA2 from '../assets/images/formation_moto_a2.webp';
 import { VehicleScrollCinematic } from './VehicleScrollCinematic';
 
 interface VehiclesPageProps {
@@ -14,21 +14,21 @@ export const VehiclesPage: React.FC<VehiclesPageProps> = ({ onNavigate }) => {
   const vehicles = [
     {
       id: 'manuelle',
-      name: 'Renault Clio V',
+      name: 'Renault Clio 6',
       type: 'Boîte Manuelle',
       folderName: 'clio_grise',
       fallbackImage: formationBManuelle,
       formationTarget: 'permis-b-meca',
       desc: "Véhicule de référence pour l'apprentissage de la conduite. Sa maniabilité et son confort en font l'outil idéal pour maîtriser la boîte manuelle dans des conditions optimales.",
       features: [
-        { icon: <Settings className="w-5 h-5" />, label: 'Boîte manuelle 6 rapports' },
+        { icon: <Settings className="w-5 h-5" />, label: 'Boîte manuelle' },
         { icon: <ShieldCheck className="w-5 h-5" />, label: 'Double commande auto-école' },
-        { icon: <Gauge className="w-5 h-5" />, label: 'Motorisation dynamique' }
+        { icon: <Gauge className="w-5 h-5" />, label: 'Modèle récent' }
       ]
     },
     {
       id: 'auto',
-      name: 'Renault Clio E-Tech',
+      name: 'Renault 5',
       type: 'Boîte Automatique',
       folderName: 'clio_bleu',
       fallbackImage: formationBAuto,
@@ -36,8 +36,8 @@ export const VehiclesPage: React.FC<VehiclesPageProps> = ({ onNavigate }) => {
       desc: "Apprentissage simplifié et sans stress. Concentrez-vous sur l'environnement et la sécurité grâce à une transmission automatique fluide et agréable.",
       features: [
         { icon: <Settings className="w-5 h-5" />, label: 'Boîte automatique' },
-        { icon: <ShieldCheck className="w-5 h-5" />, label: 'Aides à la conduite (ADAS)' },
-        { icon: <Gauge className="w-5 h-5" />, label: 'Motorisation hybride' }
+        { icon: <ShieldCheck className="w-5 h-5" />, label: 'Double commande auto-école' },
+        { icon: <Gauge className="w-5 h-5" />, label: 'Passerelle possible vers la boîte manuelle' }
       ]
     },
     {

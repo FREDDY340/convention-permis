@@ -2,15 +2,18 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, Maximize2 } from 'lucide-react';
 
-import sophieImg from '../assets/images/team_sophie.jpg';
-import thomasImg from '../assets/images/team_thomas.jpg';
-import camilleImg from '../assets/images/team_camille.jpg';
-import nicolasImg from '../assets/images/team_nicolas.jpg';
+import sophieImg from '../assets/images/team_sophie.webp';
+import thomasImg from '../assets/images/team_thomas.webp';
+import camilleImg from '../assets/images/team_camille.webp';
+import nicolasImg from '../assets/images/team_nicolas.webp';
 import videoPrez from '../assets/videos/video-prez.mp4';
 
 interface AboutSectionProps {
   onNavigate: (sectionId: string) => void;
 }
+
+// Équipe masquée tant que Convention Permis n'a pas fourni les vrais prénoms, rôles et photos.
+const SHOW_TEAM = false;
 
 const teamMembers = [
   {
@@ -143,6 +146,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
       </div>
 
       {/* Team Section */}
+      {SHOW_TEAM && (
       <div id="team-section" className="mb-8 scroll-mt-28">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -179,7 +183,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
               }`}
             >
               <div className="aspect-square w-full overflow-hidden bg-zinc-900">
-                <img 
+                <img loading="lazy" decoding="async" 
                   src={member.image} 
                   alt={member.name} 
                   className={`w-full h-full object-cover transition-all duration-500 ${
@@ -210,7 +214,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
             className="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-start bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-6 md:p-8"
           >
             <div className="w-full md:w-1/3 aspect-[4/5] sm:aspect-square overflow-hidden rounded-xl border border-zinc-800 shrink-0">
-              <img 
+              <img loading="lazy" decoding="async" 
                 src={activeMember.image} 
                 alt={activeMember.name} 
                 className="w-full h-full object-cover"
@@ -237,6 +241,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
           </motion.div>
         </AnimatePresence>
       </div>
+      )}
     </section>
   );
 };

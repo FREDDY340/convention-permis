@@ -272,7 +272,7 @@ export const VehicleScrollCinematic: React.FC<VehicleScrollCinematicProps> = ({
     >
       {/* Fallback image while initial frame loads */}
       {fallbackImage && (
-        <img
+        <img loading="lazy" decoding="async"
           src={fallbackImage}
           alt="Véhicule Convention Permis"
           className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${

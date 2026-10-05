@@ -126,7 +126,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                       1. Éditeur du site
                     </h3>
                     <p>
-                      Le site internet <strong>conventionpermis.fr</strong> est édité par la société <strong>Convention Permis SAS</strong>, auto-école agréée par la Préfecture de Police de Paris.
+                      Le site internet <strong>conventionpermis.fr</strong> est édité par <strong>Convention Permis</strong>, auto-école agréée par la Préfecture de Police de Paris.
                     </p>
                     <ul className="list-disc list-inside space-y-1 text-zinc-400 pl-2">
                       <li><strong>Siège social :</strong> 122 rue de l'Abbé Groult, 75015 Paris</li>
@@ -143,7 +143,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                       2. Hébergement
                     </h3>
                     <p>
-                      Le site est hébergé sur des infrastructures sécurisées européennes répondant aux normes ISO 27001 et RGPD.
+                      Le site est hébergé par <strong>GitHub, Inc.</strong> (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis. Site : github.com.
                     </p>
                   </section>
 
@@ -184,6 +184,9 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                       <li>Coordonnées (numéro de téléphone, adresse email)</li>
                       <li>Données nécessaires à l'enregistrement ANTS et livret d'apprentissage</li>
                     </ul>
+                    <p>
+                      Les demandes envoyées par le formulaire de contact (nom, prénom, e-mail, téléphone, formation souhaitée, statut étudiant, message) sont transmises par e-mail à Convention Permis via le service FormSubmit. Elles servent uniquement à vous recontacter et sont conservées au maximum 3 ans après le dernier contact.
+                    </p>
                   </section>
 
                   <section className="space-y-2">

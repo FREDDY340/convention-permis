@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Phone, Mail, MapPin, Clock, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, ArrowRight, ShieldCheck, CheckCircle2, MessageCircle } from 'lucide-react';
+import type { LegalTab } from './LegalModal';
+import { sendLead } from '../lib/sendLead';
+import { CALLBACK_DELAY, CONTACT_EMAIL, FORMATION_LABELS, PHONE_DISPLAY, PHONE_TEL, STUDENT_DISCOUNT, WHATSAPP_URL, formatEuros } from '../data/tarifs';
 
 interface ContactSectionProps {
   selectedFormation?: string;
+  onOpenLegal?: (tab: LegalTab) => void;
 }
 
-export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormation }) => {
+export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormation, onOpenLegal }) => {
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -14,6 +19,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
     phone: '',
     formation: selectedFormation || '',
     message: '',
+    student: false,
     agreed: false
   });
 
@@ -29,9 +35,27 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
     setFormData(prev => ({ ...prev, [name]: val }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setStatus('sending');
+    try {
+      await sendLead(
+        {
+          Prénom: formData.firstName,
+          Nom: formData.lastName,
+          Email: formData.email,
+          Téléphone: formData.phone,
+          Formation: FORMATION_LABELS[formData.formation] ?? formData.formation,
+          Étudiant: formData.student,
+          Message: formData.message,
+          _replyto: formData.email,
+        },
+        `Nouvelle demande site : ${formData.firstName} ${formData.lastName}`
+      );
+      setStatus('sent');
+    } catch {
+      setStatus('error');
+    }
   };
 
   const containerVariants = {
@@ -70,10 +94,17 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
           >
             <motion.h2 variants={itemVariants} className="text-2xl sm:text-3xl font-bold text-white mb-3">Prêt à passer votre permis ?</motion.h2>
             <motion.p variants={itemVariants} className="text-zinc-400 text-sm mb-8 leading-relaxed max-w-md">
-              Remplissez le formulaire ci-dessous. Un conseiller pédagogique 
-              Convention Permis vous recontactera sous 2 heures ouvrées.
+              Remplissez le formulaire ci-dessous. Un conseiller pédagogique
+              Convention Permis vous recontactera {CALLBACK_DELAY}.
             </motion.p>
 
+            {status === 'sent' ? (
+              <div role="status" className="flex flex-col items-start gap-3 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-6">
+                <CheckCircle2 className="w-8 h-8 text-emerald-400" />
+                <p className="text-white font-bold text-lg">Merci, votre demande est bien envoyée.</p>
+                <p className="text-zinc-300 text-sm">Un conseiller vous recontactera {CALLBACK_DELAY}. Besoin d'une réponse tout de suite ? Appelez le <a href={`tel:${PHONE_TEL}`} className="text-[#ff4d00] font-semibold">{PHONE_DISPLAY}</a>.</p>
+              </div>
+            ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
@@ -167,6 +198,19 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
               </motion.div>
 
               <motion.div variants={itemVariants} className="pt-2">
+                <label className="flex items-center gap-3 cursor-pointer text-sm text-zinc-300">
+                  <input
+                    type="checkbox"
+                    name="student"
+                    checked={formData.student}
+                    onChange={handleChange}
+                    className="w-4 h-4 accent-[#ff4d00]"
+                  />
+                  Je suis étudiant(e) : {formatEuros(STUDENT_DISCOUNT)} de remise sur le permis B, sur justificatif
+                </label>
+              </motion.div>
+
+              <motion.div variants={itemVariants} className="pt-2">
                 <label className="flex items-start gap-3 cursor-pointer group">
                   <div className="relative flex items-center mt-0.5">
                     <input
@@ -185,20 +229,28 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
                   </div>
                   <span className="text-xs text-zinc-400 leading-snug">
                     J'accepte que mes données soient traitées par Convention Permis dans le cadre de ma demande de renseignements, de prise de rendez-vous ou d'inscription.{' '}
-                    <a href="#" className="text-[#ff4d00] hover:underline underline-offset-2">Politique de confidentialité</a>
+                    <button type="button" onClick={() => onOpenLegal?.('privacy')} className="text-[#ff4d00] hover:underline underline-offset-2">Politique de confidentialité</button>
                   </span>
                 </label>
               </motion.div>
 
+              {status === 'error' && (
+                <p role="alert" className="text-sm text-red-400">
+                  L'envoi n'a pas abouti. Réessayez, ou contactez-nous au <a href={`tel:${PHONE_TEL}`} className="underline">{PHONE_DISPLAY}</a> ou sur <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="underline">WhatsApp</a>.
+                </p>
+              )}
+
               <motion.button
                 variants={itemVariants}
                 type="submit"
+                disabled={status === 'sending'}
                 className="w-full flex items-center justify-center gap-2 bg-[#ff4d00] hover:bg-[#ff5e1a] text-white font-bold py-3.5 px-6 rounded-lg transition-colors mt-6 shadow-[0_0_15px_rgba(255,77,0,0.3)] hover:shadow-[0_0_25px_rgba(255,77,0,0.5)]"
               >
-                Je m'inscris maintenant
+                {status === 'sending' ? 'Envoi en cours…' : "Je m'inscris maintenant"}
                 <ArrowRight className="w-4 h-4" />
               </motion.button>
             </form>
+            )}
           </motion.div>
 
           {/* Middle Block: Contact Info */}
@@ -211,8 +263,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
             <div className="space-y-6 flex-1">
               
               <motion.div variants={itemVariants} className="flex items-start gap-4">
+                <Phone className="w-5 h-5 text-[#ff4d00] shrink-0 mt-0.5" />
+                <a href={`tel:${PHONE_TEL}`} className="text-zinc-200 text-sm font-medium hover:text-[#ff4d00]">{PHONE_DISPLAY}</a>
+              </motion.div>
+
+              <motion.div variants={itemVariants} className="flex items-start gap-4">
+                <MessageCircle className="w-5 h-5 text-[#ff4d00] shrink-0 mt-0.5" />
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="text-zinc-200 text-sm font-medium hover:text-[#ff4d00]">Nous écrire sur WhatsApp</a>
+              </motion.div>
+
+              <motion.div variants={itemVariants} className="flex items-start gap-4">
                 <Mail className="w-5 h-5 text-[#ff4d00] shrink-0 mt-0.5" />
-                <span className="text-zinc-200 text-sm font-medium break-all">contact@conventionpermis.fr</span>
+                <a href={`mailto:${CONTACT_EMAIL}`} className="text-zinc-200 text-sm font-medium break-all hover:text-[#ff4d00]">{CONTACT_EMAIL}</a>
               </motion.div>
 
               <motion.div variants={itemVariants} className="flex items-start gap-4">

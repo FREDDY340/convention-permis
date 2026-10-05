@@ -67,15 +67,15 @@ export const ShowreelModal: React.FC<ShowreelModalProps> = ({ isOpen, onClose })
               APPRENEZ. PROGRESSEZ. PRENEZ CONFIANCE.
             </h4>
             <p className="text-sm text-zinc-600 leading-relaxed font-light">
-              Découvrez en images nos véhicules récents, notre simulateur de conduite et la pédagogie positive de nos enseignants pour réussir votre permis du premier coup.
+              Découvrez en images nos véhicules récents et la pédagogie positive de nos enseignants pour préparer votre permis en confiance.
             </p>
 
             <div className="mt-6 flex items-center gap-4 text-xs text-zinc-600 font-mono">
               <span className="flex items-center gap-1.5 px-3 py-1 rounded bg-white border border-zinc-200">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#ff4d00]" /> LABEL QUALITÉ
+                <ShieldCheck className="w-3.5 h-3.5 text-[#ff4d00]" /> ÉTABLISSEMENT AGRÉÉ
               </span>
               <span className="flex items-center gap-1.5 px-3 py-1 rounded bg-white border border-zinc-200">
-                <Sparkles className="w-3.5 h-3.5 text-[#ff4d00]" /> 98% RÉUSSITE
+                <Sparkles className="w-3.5 h-3.5 text-[#ff4d00]" /> PÉDAGOGIE POSITIVE
               </span>
             </div>
           </div>

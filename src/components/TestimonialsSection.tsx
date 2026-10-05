@@ -134,8 +134,8 @@ const ReviewAvatar: React.FC<AvatarProps> = ({ src, name }) => {
     <div className="relative shrink-0">
       <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden border-2 border-white/10 ring-2 ring-[#ff4d00]/20 shadow-md bg-zinc-800 flex items-center justify-center">
         {!hasError ? (
-          <img 
-            src={src} 
+          <img decoding="async"
+            src={src}
             alt={name} 
             onError={() => setHasError(true)}
             className="w-full h-full object-cover"

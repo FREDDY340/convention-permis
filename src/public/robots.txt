@@ -1,5 +1,0 @@
-# robots.txt for https://convention-permis.fr
-User-agent: *
-Allow: /
-
-Sitemap: https://convention-permis.fr/sitemap.xml

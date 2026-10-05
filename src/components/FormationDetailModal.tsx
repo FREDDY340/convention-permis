@@ -18,12 +18,13 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-import formationBManuelle from '../assets/images/formation_b_manuelle.png';
-import formationBAuto from '../assets/images/formation_b_auto.png';
-import formationConduiteAccompagnee from '../assets/images/formation_conduite_accompagnee.png';
-import formationMotoA2 from '../assets/images/formation_moto_a2.png';
-import clioPic from '../assets/images/renault_clio.jpg';
+import formationBManuelle from '../assets/images/formation_b_manuelle.webp';
+import formationBAuto from '../assets/images/formation_b_auto.webp';
+import formationConduiteAccompagnee from '../assets/images/formation_conduite_accompagnee.webp';
+import formationMotoA2 from '../assets/images/formation_moto_a2.webp';
+import clioPic from '../assets/images/renault_clio.webp';
 import mt07Pic from '../assets/images/yamaha_mt07.webp';
+import { FORFAITS, formatEuros, ACCELERATED_PACK, STUDENT_PROOF_NOTE } from '../data/tarifs';
 
 export type FormationId = 'permis-b-meca' | 'permis-b-auto' | 'conduite-accompagnee' | 'moto-a2';
 
@@ -39,7 +40,6 @@ export interface FormationData {
   title: string;
   badge: string;
   subtitle: string;
-  price: string;
   duration: string;
   minAge: string;
   vehicle: string;
@@ -59,13 +59,12 @@ export const FORMATIONS_DETAILS: Record<FormationId, FormationData> = {
     title: 'Permis B — Boîte Manuelle',
     badge: 'Formule Phare',
     subtitle: 'La maîtrise totale de la conduite traditionnelle',
-    price: '990 €',
     duration: '20h minimum réglementaires',
     minAge: '17 ans (examen dès 17 ans)',
-    vehicle: 'Renault Clio V (Boîte manuelle 6 rapports)',
+    vehicle: 'Renault Clio 6 (boîte manuelle)',
     vehicleImage: clioPic,
     heroImage: formationBManuelle,
-    description: "Le permis B sur boîte manuelle reste la référence universelle. Il vous autorise à conduire tous les véhicules légers (manuels et automatiques). Chez Convention Permis, vous bénéficiez d'une pédagogie structurée avec évaluation initiale sur simulateur et leçons sur Renault Clio V récentes.",
+    description: "Le permis B sur boîte manuelle reste la référence universelle. Il vous autorise à conduire tous les véhicules légers (manuels et automatiques). Chez Convention Permis, vous bénéficiez d'une pédagogie structurée avec évaluation initiale et leçons sur Renault Clio 6 récente.",
     objectives: [
       'Maîtriser le maniement du véhicule (embrayage, passages de vitesse, démarrages en côte)',
       "Appréhender l'environnement routier et la circulation urbaine / autoroutière",
@@ -73,20 +72,20 @@ export const FORMATIONS_DETAILS: Record<FormationId, FormationData> = {
       "Réussir l'épreuve pratique du permis de conduire"
     ],
     programSteps: [
-      { step: '01', title: 'Évaluation initiale', desc: 'Test sur simulateur 3D haute définition pour déterminer votre volume d\'heures personnalisé.' },
+      { step: '01', title: 'Évaluation initiale', desc: 'Un premier rendez-vous de conduite pour estimer votre volume d\'heures personnalisé.' },
       { step: '02', title: 'Code de la Route 24/7', desc: 'Accès illimité à la plateforme en ligne et séries d\'entraînement en agence.' },
-      { step: '03', title: 'Leçons de conduite', desc: 'Formation pratique individuelle avec moniteur diplômé d\'État sur Clio V.' },
+      { step: '03', title: 'Leçons de conduite', desc: 'Formation pratique individuelle avec moniteur diplômé d\'État sur Renault Clio 6.' },
       { step: '04', title: 'Examen blanc & Examen officiel', desc: 'Mise en situation réelle de l\'épreuve pratique puis accompagnement à l\'examen.' }
     ],
     included: [
       'Évaluation initiale personnalisée',
-      'Accès Code en ligne illimité (Pratificode)',
+      'Accès au code en ligne illimité',
       'Livret d\'apprentissage numérique',
       '20h de conduite individuelle avec moniteur dédié',
       'Accompagnement et représentation à l\'examen pratique',
       'Gestion complète de votre dossier préfectoral (ANTS)'
     ],
-    fundingOptions: ['Mon Compte Formation (CPF)', 'Permis à 1€ par jour', 'Paiement en 3x ou 4x sans frais'],
+    fundingOptions: ['Paiement en 3x ou 4x'],
     prerequisites: ['ASSR 2 ou ASR', 'Journée Défense et Citoyenneté (JDC) ou attestation de recensement', 'Pièce d\'identité en cours de validité']
   },
   'permis-b-auto': {
@@ -94,10 +93,9 @@ export const FORMATIONS_DETAILS: Record<FormationId, FormationData> = {
     title: 'Permis B — Boîte Automatique (BEA)',
     badge: 'Apprentissage Rapide',
     subtitle: 'Conduisez plus sereinement avec moins d\'heures obligatoires',
-    price: '790 €',
     duration: '13h minimum réglementaires',
     minAge: '17 ans (examen dès 17 ans)',
-    vehicle: 'Renault Clio V Automatique (Cockpit digital & caméras)',
+    vehicle: 'Renault 5 (boîte automatique)',
     vehicleImage: clioPic,
     heroImage: formationBAuto,
     description: "Le permis BEA (Boîte d'Embrayage Automatique) permet un apprentissage plus rapide et plus fluide en supprimant la gestion de l'embrayage. Idéal pour réduire le stress au volant. Une simple passerelle de 7h sans examen permet de le convertir en permis B manuel après 6 mois !",
@@ -108,38 +106,37 @@ export const FORMATIONS_DETAILS: Record<FormationId, FormationData> = {
       'Possibilité de passerelle vers le permis manuel ultérieurement'
     ],
     programSteps: [
-      { step: '01', title: 'Évaluation initiale', desc: 'Diagnostic personnalisé de vos capacités sur notre simulateur.' },
+      { step: '01', title: 'Évaluation initiale', desc: 'Diagnostic personnalisé de vos capacités avec un moniteur.' },
       { step: '02', title: 'Code en ligne', desc: 'Préparation intensive et séries thématiques en accès illimité.' },
       { step: '03', title: 'Conduite automatique', desc: '13h de leçons focalisées sur l\'observation, l\'anticipation et la sécurité.' },
       { step: '04', title: 'Examen pratique', desc: 'Présentation rapide dès que le niveau requis est atteint.' }
     ],
     included: [
-      'Évaluation initiale sur simulateur',
+      'Évaluation initiale personnalisée',
       'Plateforme de Code en ligne illimitée',
       '13 heures de conduite en boîte automatique',
       'Dossier ANTS et démarches administratives incluses',
       'Accompagnement personnalisé le jour de l\'examen'
     ],
-    fundingOptions: ['Mon Compte Formation (CPF)', 'Permis à 1€ par jour', 'Facilités de paiement en 3x / 4x'],
+    fundingOptions: ['Paiement en 3x ou 4x'],
     prerequisites: ['Pièce d\'identité valide', 'Attestation JDC ou recensement']
   },
   'conduite-accompagnee': {
     id: 'conduite-accompagnee',
     title: 'Conduite Accompagnée (AAC)',
     badge: 'Dès 15 ans',
-    subtitle: 'Le meilleur taux de réussite et une expérience renforcée',
-    price: '1 150 €',
+    subtitle: 'Une expérience de la route renforcée avant l\'examen',
     duration: '20h de formation + 3000 km accompagnés',
     minAge: 'Dès 15 ans',
-    vehicle: 'Renault Clio V + Véhicule des parents',
+    vehicle: 'Renault Clio 6 + véhicule des accompagnateurs',
     vehicleImage: clioPic,
     heroImage: formationConduiteAccompagnee,
-    description: "La Conduite Accompagnée (AAC) permet aux jeunes de se former dès 15 ans. Après une formation initiale en auto-école, l'élève parcourt au moins 3 000 km avec ses accompagnateurs. Résultat : un taux de réussite nettement supérieur à l'examen et une surprime d'assurance fortement réduite !",
+    description: "La Conduite Accompagnée (AAC) permet aux jeunes de se former dès 15 ans. Après une formation initiale en auto-école, l'élève parcourt au moins 3 000 km avec ses accompagnateurs. Résultat : plus d'expérience de la route le jour de l'examen et une surprime d'assurance réduite.",
     objectives: [
       'Acquérir une solide expérience de la route avant l\'examen',
       'Réduire la période probatoire de 3 ans à 2 ans',
       'Bénéficier de tarifs préférentiels auprès des assurances jeunes conducteurs',
-      'Maximiser ses chances de réussite au permis du 1er coup (>80% de réussite)'
+      'Maximiser ses chances de réussite au permis grâce à l\'expérience acquise'
     ],
     programSteps: [
       { step: '01', title: 'Formation Initiale (20h)', desc: 'Apprentissage du code et des bases solides de la conduite avec un moniteur.' },
@@ -155,7 +152,7 @@ export const FORMATIONS_DETAILS: Record<FormationId, FormationData> = {
       'Livret de suivi élève et guide des accompagnateurs',
       'Accompagnement à l\'examen du permis de conduire'
     ],
-    fundingOptions: ['Permis à 1€ par jour', 'Financement Région / Aide aux apprentis', 'Paiement échelonné en 4x'],
+    fundingOptions: ['Paiement en 3x ou 4x'],
     prerequisites: ['Âge minimum : 15 ans', 'Accord de l\'assurance du véhicule familial', 'ASSR 2']
   },
   'moto-a2': {
@@ -163,13 +160,12 @@ export const FORMATIONS_DETAILS: Record<FormationId, FormationData> = {
     title: 'Permis Moto A2',
     badge: 'Passion Deux-Roues',
     subtitle: 'Pilotez des motos jusqu\'à 35 kW (47.5 ch) en toute sécurité',
-    price: '890 €',
     duration: '20h (8h plateau + 12h circulation)',
     minAge: 'Dès 18 ans',
-    vehicle: 'Yamaha MT-07 A2 (Abs, piste privée)',
+    vehicle: 'Yamaha MT-07 A2 (ABS)',
     vehicleImage: mt07Pic,
     heroImage: formationMotoA2,
-    description: "Le permis A2 vous ouvre les portes du monde motard. Dispensée par notre moniteur passionné Thomas sur des Yamaha MT-07 récentes, la formation alterne travail technique sur piste privée (plateau) et maîtrise du trafic en circulation routière.",
+    description: "Le permis A2 vous ouvre les portes du monde motard. La formation se déroule au Parc des Expositions de Villepinte (93), à côté du circuit Carole : elle alterne travail technique sur plateau et maîtrise du trafic en circulation routière. L'inscription et l'accueil se font à l'agence, 122 rue de l'Abbé Groult (Paris 15e).",
     objectives: [
       'Maîtriser l\'équilibre, l\'inclinaison, le freinage d\'urgence et les évitements',
       'Obtenir l\'Épreuve Hors Circulation (Plateau) à allure lente et normale',
@@ -178,19 +174,19 @@ export const FORMATIONS_DETAILS: Record<FormationId, FormationData> = {
     ],
     programSteps: [
       { step: '01', title: 'Code Moto (ETM)', desc: 'Préparation spécifique à l\'Épreuve Théorique Moto sur plateforme dédiée.' },
-      { step: '02', title: 'Piste Privée (Plateau)', desc: 'Exercices techniques hors circulation (vérifications, allure lente, freinage, évitement).' },
+      { step: '02', title: 'Plateau à Villepinte (93)', desc: 'Exercices techniques hors circulation (vérifications, allure lente, freinage, évitement).' },
       { step: '03', title: 'Circulation Guidée', desc: 'Apprentissage des trajectoires de sécurité (virages, inter-files, autoroute).' },
       { step: '04', title: 'Passage des Examens', desc: 'Présentation aux 2 épreuves officielles (Plateau + Circulation).' }
     ],
     included: [
       'Accès plateforme ETM (Code Moto)',
-      '8h d\'entraînement technique sur piste privée',
+      '8h d\'entraînement technique sur le plateau de Villepinte (93)',
       '12h de leçons de circulation sur Yamaha MT-07',
       'Prêt des équipements de piste si nécessaire',
       'Présentation aux 2 épreuves d\'examen (Plateau & Circulation)',
       'Gestion dossier ANTS'
     ],
-    fundingOptions: ['CPF (selon critères d\'éligibilité professionnelle)', 'Paiement en 3x ou 4x sans frais'],
+    fundingOptions: ['Paiement en 3x ou 4x'],
     prerequisites: ['Équipement obligatoire : Casque homologué, gants CE, blouson renforcé, chaussures montantes', 'Âge minimum : 18 ans']
   }
 };
@@ -234,7 +230,7 @@ export const FormationDetailModal: React.FC<FormationDetailModalProps> = ({
           >
             {/* Header / Hero Banner */}
             <div className="relative h-48 sm:h-64 w-full overflow-hidden shrink-0">
-              <img
+              <img loading="lazy" decoding="async"
                 src={data.heroImage}
                 alt={data.title}
                 className="w-full h-full object-cover"
@@ -284,7 +280,7 @@ export const FormationDetailModal: React.FC<FormationDetailModalProps> = ({
               <div className="flex items-center gap-2 shrink-0">
                 <Car className="w-4 h-4 text-[#ff4d00]" />
                 <span className="text-zinc-400">Support :</span>
-                <span className="font-semibold text-white">{data.vehicle.split('(')[0]}</span>
+                <span className="font-semibold text-white">{data.id === 'moto-a2' ? 'Yamaha MT-07 · Villepinte (93)' : data.vehicle.split('(')[0]}</span>
               </div>
             </div>
 
@@ -448,11 +444,23 @@ export const FormationDetailModal: React.FC<FormationDetailModalProps> = ({
             <div className="p-4 sm:p-6 bg-[#111117] border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
               <div>
                 <span className="text-xs text-zinc-400 uppercase tracking-wider block">Tarif de la formule</span>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-2xl sm:text-3xl font-black text-white">{data.price}</span>
-                  <span className="text-xs text-zinc-400 font-medium">TTC</span>
-                  <span className="text-xs text-emerald-400 font-semibold ml-2">Paiement 3x / 4x disponible</span>
-                </div>
+                <ul className="mt-1 space-y-0.5">
+                  {(FORFAITS[data.id] ?? []).map((forfait) => (
+                    <li key={forfait.label} className="flex flex-wrap items-baseline gap-x-2 text-sm">
+                      <span className="text-zinc-300">{forfait.label} :</span>
+                      <span className="text-xl font-black text-white">{formatEuros(forfait.price)}</span>
+                      <span className="text-xs text-zinc-400">TTC</span>
+                      {forfait.studentPrice !== null && (
+                        <span className="text-xs text-emerald-400 font-semibold">Étudiant {formatEuros(forfait.studentPrice)}</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[11px] text-zinc-400 mt-1">
+                  Paiement en 3x ou 4x.
+                  {(data.id === 'permis-b-meca' || data.id === 'permis-b-auto') && ` Pack accéléré : + ${formatEuros(ACCELERATED_PACK)}.`}
+                  {' '}Prix étudiant {STUDENT_PROOF_NOTE}.
+                </p>
               </div>
 
               <div className="flex items-center gap-3 w-full sm:w-auto">

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { X, ArrowRight, Sparkles, Clock } from 'lucide-react';
 
-import formationBManuelle from '../assets/images/formation_b_manuelle.png';
-import formationBAuto from '../assets/images/formation_b_auto.png';
-import formationConduiteAccompagnee from '../assets/images/formation_conduite_accompagnee.png';
-import formationMotoA2 from '../assets/images/formation_moto_a2.png';
-import codeRouteImg from '../assets/images/code_route.jpg';
-import clioImg from '../assets/images/renault_clio.jpg';
+import formationBManuelle from '../assets/images/formation_b_manuelle.webp';
+import formationBAuto from '../assets/images/formation_b_auto.webp';
+import formationConduiteAccompagnee from '../assets/images/formation_conduite_accompagnee.webp';
+import formationMotoA2 from '../assets/images/formation_moto_a2.webp';
+import codeRouteImg from '../assets/images/code_route.webp';
+import clioImg from '../assets/images/renault_clio.webp';
 
 interface WorkModalProps {
   isOpen: boolean;
@@ -66,7 +66,7 @@ export const WorkModal: React.FC<WorkModalProps> = ({
       category: 'Jeunes',
       duration: 'Dès 15 ans',
       image: formationConduiteAccompagnee,
-      desc: 'Le meilleur taux de réussite dès la première tentative et une réduction significative de l’assurance.',
+      desc: 'Plus d’expérience de la route avant l’examen et une surprime d’assurance réduite.',
       features: ['Plus d’expérience', 'Période probatoire réduite à 2 ans', 'Tarif assurance avantageux'],
     },
     {
@@ -75,8 +75,8 @@ export const WorkModal: React.FC<WorkModalProps> = ({
       category: 'Moto',
       duration: 'Plateau & Circulation',
       image: formationMotoA2,
-      desc: 'Apprentissage intensif de la moto sur piste privée dédiée et moniteurs passionnés.',
-      features: ['Piste privée homologuée', 'Motos récentes et adaptées', 'Équipements et sécurité'],
+      desc: 'Apprentissage de la moto sur le plateau du Parc des Expositions de Villepinte (93), puis en circulation.',
+      features: ['Plateau à Villepinte (93)', 'Motos récentes et adaptées', 'Équipements et sécurité'],
     },
     {
       id: 'permis-b-meca',
@@ -160,7 +160,7 @@ export const WorkModal: React.FC<WorkModalProps> = ({
               className="group rounded-xl bg-zinc-900/40 border border-zinc-800/90 hover:border-[#ff4d00]/70 transition-all duration-300 flex flex-col justify-between overflow-hidden"
             >
               <div className="h-40 w-full overflow-hidden relative bg-zinc-950">
-                <img
+                <img loading="lazy" decoding="async"
                   src={proj.image}
                   alt={proj.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

@@ -11,15 +11,16 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-import formationBManuelle from '../assets/images/formation_b_manuelle.png';
-import formationBAuto from '../assets/images/formation_b_auto.png';
-import formationConduiteAccompagnee from '../assets/images/formation_conduite_accompagnee.png';
-import formationMotoA2 from '../assets/images/formation_moto_a2.png';
-import formationBManuelleStatic from '../assets/images/formation_b_manuelle.png';
-import formationBAutoStatic from '../assets/images/formation_b_auto.png';
-import formationMotoA2Static from '../assets/images/formation_moto_a2.png';
-import formationConduiteAccompagneeStatic from '../assets/images/formation_conduite_accompagnee.png';
+import formationBManuelle from '../assets/images/formation_b_manuelle.webp';
+import formationBAuto from '../assets/images/formation_b_auto.webp';
+import formationConduiteAccompagnee from '../assets/images/formation_conduite_accompagnee.webp';
+import formationMotoA2 from '../assets/images/formation_moto_a2.webp';
+import formationBManuelleStatic from '../assets/images/formation_b_manuelle.webp';
+import formationBAutoStatic from '../assets/images/formation_b_auto.webp';
+import formationMotoA2Static from '../assets/images/formation_moto_a2.webp';
+import formationConduiteAccompagneeStatic from '../assets/images/formation_conduite_accompagnee.webp';
 import { ClioScrollThumbnail } from './ClioScrollThumbnail';
+import { FORFAITS, formatEuros, ACCELERATED_PACK, STUDENT_PROOF_NOTE } from '../data/tarifs';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -71,7 +72,7 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
     {
       icon: <CalendarDays className="w-8 h-8 text-[#ff4d00]" />,
       title: 'Planning flexible',
-      desc: 'Réservez et modifiez vos heures en ligne 24h/24.',
+      desc: 'Des créneaux de conduite adaptés à votre emploi du temps.',
     },
     {
       icon: <CreditCard className="w-8 h-8 text-[#ff4d00]" />,
@@ -97,12 +98,11 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
       image: formationBManuelle,
       title: 'Permis B\nBoîte manuelle',
       features: [
-        'Évaluation initiale sur simulateur',
+        'Évaluation initiale personnalisée',
         'Code en ligne illimité',
         "Accompagnement à l'examen",
-        'Véhicule : Renault Clio*',
+        'Véhicule : Renault Clio 6',
       ],
-      price: '990 €',
     },
     {
       id: 'permis-b-auto',
@@ -113,9 +113,9 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
         'Apprentissage plus fluide',
         'Caméra de recul',
         'Cockpit digital',
-        'Passerelle vers B manuelle**',
+        'Véhicule : Renault 5',
+        'Passerelle possible vers la boîte manuelle',
       ],
-      price: '790 €',
     },
     {
       id: 'conduite-accompagnee',
@@ -125,10 +125,9 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
       features: [
         'Rendez-vous pédagogiques',
         'Livret de suivi élève & parents',
-        'Assurance avantageuse***',
-        'Période probatoire réduite****',
+        'Assurance jeune conducteur souvent plus avantageuse',
+        'Période probatoire réduite à 2 ans',
       ],
-      price: '1 150 €',
     },
     {
       id: 'moto-a2',
@@ -136,12 +135,11 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
       image: formationMotoA2,
       title: 'Permis\nMoto A2',
       features: [
-        'Plateau fermé',
-        'Motos récentes',
-        'Piste privée sécurisée',
+        'Cours au Parc des Expositions de Villepinte (93)',
+        'Inscription au 122 rue de l\'Abbé Groult, Paris 15e',
+        'Plateau fermé et circulation',
         'Accompagnement équipement',
       ],
-      price: '890 €',
     },
   ];
 
@@ -238,9 +236,9 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
                     />
                   ) : (
                     <>
-                      <img
+                      <img loading="lazy" decoding="async"
                         src={formation.image}
-                        alt={formation.title.replace('\n', ' ')}
+                        alt={`${formation.title.replace('\n', ' ')}, auto-école Convention Permis, Paris 15`}
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -261,12 +259,23 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
                   </ul>
                   <div className="space-y-5">
                     <div>
-                      <div className="flex items-baseline gap-1.5 text-white">
-                        <span className="text-[#ff4d00] font-bold">Dès</span>
-                        <span className="text-3xl font-black tracking-tight">{formation.price}</span>
-                        <span className="text-xs text-zinc-400 font-medium">TTC*</span>
-                      </div>
-                      <p className="text-zinc-400 text-xs mt-1">Paiement en 3x ou 4x</p>
+                      <ul className="space-y-1.5" aria-label="Tarifs de la formule">
+                        {(FORFAITS[formation.id] ?? []).map((forfait) => (
+                          <li key={forfait.label} className="flex items-baseline justify-between gap-2 text-sm">
+                            <span className="text-zinc-300">{forfait.label}</span>
+                            <span className="flex items-baseline gap-2 whitespace-nowrap">
+                              <span className="text-white font-black text-lg">{formatEuros(forfait.price)}</span>
+                              {forfait.studentPrice !== null && (
+                                <span className="text-emerald-400 text-xs font-bold">Étudiant {formatEuros(forfait.studentPrice)}</span>
+                              )}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="text-zinc-400 text-xs mt-2">Prix TTC. Paiement en 3x ou 4x</p>
+                      {(formation.id === 'permis-b-meca' || formation.id === 'permis-b-auto') && (
+                        <p className="text-[#ff4d00] text-xs font-semibold mt-1">Pack accéléré : + {formatEuros(ACCELERATED_PACK)}</p>
+                      )}
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <button 
@@ -306,7 +315,7 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
             className="text-center pt-8"
           >
             <p className="text-[10px] sm:text-xs text-zinc-400">
-              * Sous réserve de validation réglementaire. ** Selon conditions et assureurs. Tarifs et contenus indicatifs non contractuels.
+              Prix étudiant : 200 € de remise sur les forfaits permis B, {STUDENT_PROOF_NOTE}. Pack accéléré : {formatEuros(ACCELERATED_PACK)} en supplément du forfait choisi.
             </p>
           </motion.div>
         </motion.div>

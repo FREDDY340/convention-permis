@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, Coffee, Monitor, User, Calendar, ArrowRight, Eye, Image as ImageIcon } from 'lucide-react';
 
 import showroomInteriorImg from '../assets/images/showroom_interior.jpg';
-import agencyInteriorImg from '../assets/images/agency_interior.png';
+import agencyInteriorImg from '../assets/images/agency_interior.webp';
 
 interface ShowroomModalProps {
   isOpen: boolean;
@@ -89,9 +89,9 @@ export const ShowroomModal: React.FC<ShowroomModalProps> = ({ isOpen, onClose, o
               ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="group relative rounded-xl overflow-hidden border border-white/10 aspect-[16/10] bg-zinc-900">
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={agencyInteriorImg}
-                      alt="Espace accueil et simulateur"
+                      alt="Espace accueil et salle de code"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
@@ -100,7 +100,7 @@ export const ShowroomModal: React.FC<ShowroomModalProps> = ({ isOpen, onClose, o
                     </span>
                   </div>
                   <div className="group relative rounded-xl overflow-hidden border border-white/10 aspect-[16/10] bg-zinc-900">
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={showroomInteriorImg}
                       alt="Showroom Convention Permis"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"

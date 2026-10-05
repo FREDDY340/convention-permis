@@ -14,6 +14,7 @@ import { ShowroomModal } from './components/ShowroomModal';
 import { LegalModal, LegalTab } from './components/LegalModal';
 import { VehiclesPage } from './components/VehiclesPage';
 import { FormationDetailModal } from './components/FormationDetailModal';
+import { WhatsAppButton } from './components/WhatsAppButton';
 
 export default function App() {
   const { scrollYProgress } = useScroll();
@@ -135,6 +136,7 @@ export default function App() {
           <TestimonialsSection />
           <ContactSection 
             selectedFormation={selectedFormation}
+            onOpenLegal={handleOpenLegal}
           />
         </main>
       )}
@@ -183,6 +185,8 @@ export default function App() {
         initialTab={legalTab}
         onClose={() => setLegalOpen(false)}
       />
+
+      <WhatsAppButton />
     </div>
   );
 }
