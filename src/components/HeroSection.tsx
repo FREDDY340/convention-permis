@@ -26,7 +26,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     <section
       ref={containerRef}
       id="hero-section"
-      className="relative min-h-screen w-full flex flex-col justify-between bg-[#09090b] text-white px-4 md:px-8 pt-24 pb-8 lg:pt-32 lg:pb-12 select-none overflow-hidden"
+      className="relative min-h-screen w-full flex flex-col justify-between bg-[#09090b] text-white px-4 md:px-8 pt-24 pb-8 lg:pt-[clamp(6.5rem,15vh,8rem)] lg:pb-[clamp(1.5rem,4vh,3rem)] select-none overflow-hidden"
     >
       {/* Cinematic Animated Video Background auto-playing in loop */}
       <HeroVideoBackground />
@@ -44,7 +44,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               transition: { staggerChildren: 0.12, delayChildren: 0.2 },
             },
           }}
-          className="lg:col-span-10 xl:col-span-9 flex flex-col justify-center space-y-6 md:space-y-8 my-auto"
+          className="lg:col-span-10 xl:col-span-9 flex flex-col justify-center space-y-6 md:space-y-8 lg:space-y-[clamp(1rem,2.6vh,2rem)] my-auto"
         >
           {/* Top Intro Hook / Tag */}
           <motion.div
@@ -72,7 +72,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             id="hero-headline"
             className="space-y-0.5"
           >
-            <h1 className="font-['Arial'] font-black tracking-[-0.02em] uppercase text-white leading-[0.92] text-4xl sm:text-5xl md:text-6xl lg:text-[5.2rem] xl:text-[6rem]">
+            <h1 className="font-['Arial'] font-black tracking-[-0.02em] uppercase text-white leading-[0.92] text-4xl sm:text-5xl md:text-6xl lg:text-[clamp(3.25rem,min(6vw,8.5vh),6rem)]">
               <span className="block text-base sm:text-lg md:text-xl tracking-[0.18em] text-zinc-300 font-bold mb-3 leading-tight">Auto-école à Paris 15e :</span>
               <span className="block">PRENEZ LE VOLANT</span>
               <span className="block">
