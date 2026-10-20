@@ -126,14 +126,18 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                       1. Éditeur du site
                     </h3>
                     <p>
-                      Le site internet <strong>conventionpermis.fr</strong> est édité par <strong>Convention Permis</strong>, auto-école agréée par la Préfecture de Police de Paris.
+                      Le site internet <strong>conventionpermis.fr</strong> est édité par <strong>Convention Permis</strong>, SAS au capital de 20 000 €, auto-école agréée par la Préfecture de Police de Paris.
                     </p>
                     <ul className="list-disc list-inside space-y-1 text-zinc-400 pl-2">
-                      <li><strong>Siège social :</strong> 122 rue de l'Abbé Groult, 75015 Paris</li>
+                      <li><strong>Forme juridique :</strong> SAS au capital de 20 000 €</li>
+                      <li><strong>RCS :</strong> 988 877 668</li>
+                      <li><strong>SIRET :</strong> 988 877 668 00018</li>
+                      <li><strong>Siège social :</strong> 221 rue de la Convention, 75015 Paris</li>
+                      <li><strong>Agence :</strong> 122 rue de l'Abbé Groult, 75015 Paris</li>
                       <li><strong>Numéro d'agrément préfectoral :</strong> E2037500010</li>
                       <li><strong>Téléphone :</strong> 06 99 77 45 76</li>
                       <li><strong>Email :</strong> contact@conventionpermis.fr</li>
-                      <li><strong>Directeur de la publication :</strong> Direction Convention Permis</li>
+                      <li><strong>Directrice de la publication :</strong> Wissem Beggar, présidente</li>
                     </ul>
                   </section>
 

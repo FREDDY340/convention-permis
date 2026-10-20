@@ -3,6 +3,7 @@
 
 export const STUDENT_DISCOUNT = 200;
 export const ACCELERATED_PACK = 650;
+export const ACCELERATED_PACK_NOTE = "en supplément du forfait choisi, avec une date d'examen obtenue rapidement";
 export const STUDENT_PROOF_NOTE = "sur présentation d'un justificatif étudiant";
 
 export interface Forfait {
@@ -22,9 +23,9 @@ export const FORFAITS: Record<string, Forfait[]> = {
     { label: '20 h de conduite', price: 1390, studentPrice: 1190 },
     { label: '30 h de conduite', price: 1790, studentPrice: 1590 },
   ],
-  // Prix non présent sur la grille du 2 octobre : à confirmer par Convention Permis.
+  // Confirmé par Convention Permis le 12/10/2026 : 20 h de conduite + 2 rendez-vous pédagogiques.
   'conduite-accompagnee': [
-    { label: 'Formation initiale 20 h', price: 1150, studentPrice: null },
+    { label: '20 h de conduite + 2 rendez-vous pédagogiques', price: 1390, studentPrice: null },
   ],
   'moto-a2': [
     { label: 'Formation complète 20 h', price: 790, studentPrice: null },

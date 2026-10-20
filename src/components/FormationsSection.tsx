@@ -20,7 +20,7 @@ import formationBAutoStatic from '../assets/images/formation_b_auto.webp';
 import formationMotoA2Static from '../assets/images/formation_moto_a2.webp';
 import formationConduiteAccompagneeStatic from '../assets/images/formation_conduite_accompagnee.webp';
 import { ClioScrollThumbnail } from './ClioScrollThumbnail';
-import { FORFAITS, formatEuros, ACCELERATED_PACK, STUDENT_PROOF_NOTE } from '../data/tarifs';
+import { FORFAITS, formatEuros, ACCELERATED_PACK, ACCELERATED_PACK_NOTE, STUDENT_PROOF_NOTE } from '../data/tarifs';
 
 const containerVariants = {
   hidden: { opacity: 0, y: 40 },
@@ -315,7 +315,7 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
             className="text-center pt-8"
           >
             <p className="text-[10px] sm:text-xs text-zinc-400">
-              Prix étudiant : 200 € de remise sur les forfaits permis B, {STUDENT_PROOF_NOTE}. Pack accéléré : {formatEuros(ACCELERATED_PACK)} en supplément du forfait choisi.
+              Prix étudiant : 200 € de remise sur les forfaits permis B, {STUDENT_PROOF_NOTE}. Pack accéléré : {formatEuros(ACCELERATED_PACK)} {ACCELERATED_PACK_NOTE}.
             </p>
           </motion.div>
         </motion.div>

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Star, CheckCircle2, Quote } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 import { motion } from 'motion/react';
 
 interface Review {
   id: number;
   name: string;
   formation: string;
-  date: string;
   text: string;
   avatar: string;
   rating: number;
@@ -20,7 +19,6 @@ const REVIEWS: Review[] = [
     id: 1,
     name: 'Ismail',
     formation: 'Avis Google',
-    date: 'Il y a 2 mois',
     rating: 5,
     text: "Je recommande vivement Convention Permis Paris 15 ! Un grand merci à toute l'équipe pour leur professionnalisme et leur gentillesse. Les moniteurs sont vraiment incroyables : patients, pédagogues et toujours à l'écoute. Grâce à eux, j'ai énormément appris et j'ai pris confiance au volant.",
     avatar: '',
@@ -29,7 +27,6 @@ const REVIEWS: Review[] = [
     id: 2,
     name: 'vinc norid',
     formation: 'Avis Google',
-    date: 'Il y a 2 mois',
     rating: 5,
     text: "Superbe auto-école ! Des moniteurs respectueux, à l'écoute et très pédagogues. L'accueil des élèves est chaleureux et l'ambiance est détendue, ce qui permet d'apprendre à conduire dans de très bonnes conditions.",
     avatar: '',
@@ -38,7 +35,6 @@ const REVIEWS: Review[] = [
     id: 3,
     name: 'Nouhad Chirine Ayad',
     formation: 'Avis Google',
-    date: 'Il y a 6 mois',
     rating: 5,
     text: "Super auto école, moniteur au top, équipe très pédagogique et à l'écoute de ses élèves. Grand + pour la flexibilité pour placer nos heures de conduite et merci à la secrétaire pour son accueil chaleureux.",
     avatar: '',
@@ -47,7 +43,6 @@ const REVIEWS: Review[] = [
     id: 4,
     name: 'iyad',
     formation: 'Avis Google',
-    date: 'Il y a 2 mois',
     rating: 5,
     text: 'Auto école très professionnel avec des moniteurs très sympathiques et pédagogues. Une secrétaire au top, super gentille et qui veut le bien et la réussite de ses élèves !',
     avatar: '',
@@ -56,7 +51,6 @@ const REVIEWS: Review[] = [
     id: 5,
     name: 'theva sriram',
     formation: 'Avis Google',
-    date: 'Il y a 2 mois',
     rating: 5,
     text: "Super auto-école avec une secrétaire incroyablement bienveillante et à l'écoute ! Les moniteurs sont vraiment pédagogues et gentils, franchement je la conseille à tout le monde !",
     avatar: '',
@@ -65,7 +59,6 @@ const REVIEWS: Review[] = [
     id: 6,
     name: 'Zumaa Gds',
     formation: 'Avis Google',
-    date: 'Il y a 2 mois',
     rating: 5,
     text: 'Très bonne auto-école ! Merci à Houari et Rayan pour leur gentillesse, leur patience et leurs précieux conseils. Je recommande sans hésiter !',
     avatar: '',
@@ -74,7 +67,6 @@ const REVIEWS: Review[] = [
     id: 7,
     name: 'yacine hadj hacene',
     formation: 'Avis Google',
-    date: 'Il y a 6 mois',
     rating: 5,
     text: "Une auto école au top ! Un accueil génial dès que vous rentrez, on vous met ultra à l'aise et on vous renseigne sur tout. Je recommande à fond, et au niveau des prix c'est incroyable.",
     avatar: '',
@@ -83,7 +75,6 @@ const REVIEWS: Review[] = [
     id: 8,
     name: 'Amar Bouizegarene',
     formation: 'Avis Google',
-    date: 'Il y a 2 mois',
     rating: 5,
     text: "Je me suis senti écouté et compris, des gens adorables, sages et à l'écoute, c'est très important. Après avoir fait toutes mes heures de conduite chez eux, je suis bien placé pour en parler.",
     avatar: '',
@@ -92,7 +83,6 @@ const REVIEWS: Review[] = [
     id: 9,
     name: 'abdelhakim boujnane',
     formation: 'Avis Google',
-    date: 'Il y a 6 mois',
     rating: 5,
     text: "Au top, très bien accueilli. Une équipe à l'écoute et qui est prête à nous aider. Je recommande à 100 % !",
     avatar: '',
@@ -146,9 +136,6 @@ const ReviewAvatar: React.FC<AvatarProps> = ({ src, name }) => {
             {initials}
           </div>
         )}
-      </div>
-      <div className="absolute -bottom-1 -right-1 bg-zinc-900 rounded-full p-0.5 shadow">
-        <CheckCircle2 className="w-4 h-4 text-[#ff4d00] fill-zinc-900" />
       </div>
     </div>
   );
@@ -219,7 +206,7 @@ export const TestimonialsSection: React.FC = () => {
                 ))}
               </div>
               <span className="text-white text-sm font-bold">4.9 / 5</span>
-              <span className="text-zinc-500 text-sm">• 61 avis certifiés</span>
+              <a href="https://www.google.com/maps/search/?api=1&query=Convention%20Permis%20122%20rue%20de%20l%27Abb%C3%A9%20Groult%2075015%20Paris" target="_blank" rel="noopener noreferrer" className="text-zinc-500 text-sm underline-offset-2 hover:underline hover:text-zinc-300">• 61 avis sur Google</a>
             </div>
             <motion.h2 
               variants={itemVariants}
@@ -322,10 +309,8 @@ export const TestimonialsSection: React.FC = () => {
 
                     {/* Card Footer */}
                     <div className="mt-5 pt-4 border-t border-white/5 flex items-center justify-between text-xs text-zinc-500">
-                      <span className="flex items-center gap-1 text-emerald-400 font-medium">
-                        <CheckCircle2 className="w-3.5 h-3.5" /> Avis vérifié
-                      </span>
-                      <span>{review.date}</span>
+                      <span className="font-medium">Avis publié sur Google</span>
+                      <a href="https://www.google.com/maps/search/?api=1&query=Convention%20Permis%20122%20rue%20de%20l%27Abb%C3%A9%20Groult%2075015%20Paris" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-300 hover:underline underline-offset-2">Voir la fiche</a>
                     </div>
                   </div>
                 </div>

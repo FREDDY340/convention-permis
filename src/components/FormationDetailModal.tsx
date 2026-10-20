@@ -24,7 +24,7 @@ import formationConduiteAccompagnee from '../assets/images/formation_conduite_ac
 import formationMotoA2 from '../assets/images/formation_moto_a2.webp';
 import clioPic from '../assets/images/renault_clio.webp';
 import mt07Pic from '../assets/images/yamaha_mt07.webp';
-import { FORFAITS, formatEuros, ACCELERATED_PACK, STUDENT_PROOF_NOTE } from '../data/tarifs';
+import { FORFAITS, formatEuros, ACCELERATED_PACK, ACCELERATED_PACK_NOTE, STUDENT_PROOF_NOTE } from '../data/tarifs';
 
 export type FormationId = 'permis-b-meca' | 'permis-b-auto' | 'conduite-accompagnee' | 'moto-a2';
 
@@ -458,7 +458,7 @@ export const FormationDetailModal: React.FC<FormationDetailModalProps> = ({
                 </ul>
                 <p className="text-[11px] text-zinc-400 mt-1">
                   Paiement en 3x ou 4x.
-                  {(data.id === 'permis-b-meca' || data.id === 'permis-b-auto') && ` Pack accéléré : + ${formatEuros(ACCELERATED_PACK)}.`}
+                  {(data.id === 'permis-b-meca' || data.id === 'permis-b-auto') && ` Pack accéléré : + ${formatEuros(ACCELERATED_PACK)} ${ACCELERATED_PACK_NOTE}.`}
                   {' '}Prix étudiant {STUDENT_PROOF_NOTE}.
                 </p>
               </div>

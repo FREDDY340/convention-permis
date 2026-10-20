@@ -66,9 +66,6 @@ export default function App() {
       } else if (sectionId === 'about') {
         const el = document.getElementById('about-section');
         if (el) el.scrollIntoView({ behavior: 'smooth' });
-      } else if (sectionId === 'team') {
-        const el = document.getElementById('team-section');
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
       } else if (sectionId === 'formations') {
         const el = document.getElementById('formations-grid');
         if (el) el.scrollIntoView({ behavior: 'smooth' });

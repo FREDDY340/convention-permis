@@ -1,53 +1,14 @@
-import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { Plus, Maximize2 } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion } from 'motion/react';
+import { Maximize2 } from 'lucide-react';
 
-import sophieImg from '../assets/images/team_sophie.webp';
-import thomasImg from '../assets/images/team_thomas.webp';
-import camilleImg from '../assets/images/team_camille.webp';
-import nicolasImg from '../assets/images/team_nicolas.webp';
 import videoPrez from '../assets/videos/video-prez.mp4';
 
 interface AboutSectionProps {
   onNavigate: (sectionId: string) => void;
 }
 
-// Équipe masquée tant que Convention Permis n'a pas fourni les vrais prénoms, rôles et photos.
-const SHOW_TEAM = false;
-
-const teamMembers = [
-  {
-    id: 'sophie',
-    name: 'SOPHIE',
-    role: 'Directrice',
-    image: sophieImg,
-    bio: "Passionnée par la transmission et les relations humaines, Sophie veille au bon fonctionnement de l'école et à la qualité de votre parcours. Elle est votre interlocutrice privilégiée pour toutes vos questions."
-  },
-  {
-    id: 'thomas',
-    name: 'THOMAS',
-    role: 'Moniteur moto',
-    image: thomasImg,
-    bio: "Expert de la conduite deux-roues, Thomas vous accompagne avec patience et pédagogie pour faire de vous un motard en toute sécurité. Son approche rassurante est idéale pour les débutants."
-  },
-  {
-    id: 'camille',
-    name: 'CAMILLE',
-    role: 'Monitrice',
-    image: camilleImg,
-    bio: "Douce et à l'écoute, Camille sait mettre en confiance les élèves les plus stressés pour un apprentissage serein et progressif. Elle vous prépare à l'examen dans les meilleures conditions."
-  },
-  {
-    id: 'nicolas',
-    name: 'NICOLAS',
-    role: 'Responsable pédagogique',
-    image: nicolasImg,
-    bio: "Garant de notre méthode d'enseignement, Nicolas s'assure que chaque formation répond à nos exigences de qualité et de réussite. Il élabore des programmes personnalisés et adaptés."
-  }
-];
-
 export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
-  const [activeMember, setActiveMember] = useState(teamMembers[0]);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const handleToggleFullscreen = () => {
@@ -144,104 +105,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onNavigate }) => {
           </div>
         </motion.div>
       </div>
-
-      {/* Team Section */}
-      {SHOW_TEAM && (
-      <div id="team-section" className="mb-8 scroll-mt-28">
-        <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl font-black uppercase text-white mb-2"
-        >
-          NOTRE ÉQUIPE
-        </motion.h2>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1 }}
-          className="text-zinc-400 text-sm mb-8"
-        >
-          Découvrez les visages qui vous accompagnent vers la réussite.
-        </motion.p>
-
-        {/* Team Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6">
-          {teamMembers.map((member, idx) => (
-            <motion.button
-              key={member.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 + (idx * 0.1) }}
-              onClick={() => setActiveMember(member)}
-              className={`relative overflow-hidden rounded-xl border transition-all duration-300 group flex flex-col text-left ${
-                activeMember.id === member.id 
-                  ? 'border-[#ff4d00] bg-zinc-900 shadow-[0_0_15px_rgba(255,77,0,0.15)]' 
-                  : 'border-zinc-800 bg-black/40 hover:border-zinc-600 hover:bg-zinc-900/60'
-              }`}
-            >
-              <div className="aspect-square w-full overflow-hidden bg-zinc-900">
-                <img loading="lazy" decoding="async" 
-                  src={member.image} 
-                  alt={member.name} 
-                  className={`w-full h-full object-cover transition-all duration-500 ${
-                    activeMember.id === member.id ? 'scale-105 opacity-100' : 'grayscale opacity-70 group-hover:grayscale-[50%] group-hover:opacity-90'
-                  }`} 
-                />
-                {/* Gradient overlay for blending */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
-              </div>
-              <div className="p-4 sm:p-5 text-center relative z-10 -mt-8">
-                <h3 className="font-bold text-white text-base sm:text-lg tracking-wide uppercase drop-shadow-md">
-                  {member.name}
-                </h3>
-                <p className="text-zinc-400 text-xs mt-0.5">{member.role}</p>
-              </div>
-            </motion.button>
-          ))}
-        </div>
-
-        {/* Detailed Member View */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeMember.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-            className="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-start bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-6 md:p-8"
-          >
-            <div className="w-full md:w-1/3 aspect-[4/5] sm:aspect-square overflow-hidden rounded-xl border border-zinc-800 shrink-0">
-              <img loading="lazy" decoding="async" 
-                src={activeMember.image} 
-                alt={activeMember.name} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            
-            <div className="w-full md:w-2/3 flex flex-col items-start text-left pt-2 md:pt-4">
-              <h3 className="text-4xl md:text-5xl font-black text-white uppercase tracking-wider mb-2">
-                {activeMember.name}
-              </h3>
-              <p className="text-white font-bold text-sm tracking-widest mb-6">
-                {activeMember.role}
-              </p>
-              <p className="text-zinc-300 text-sm sm:text-base leading-relaxed mb-8 max-w-xl">
-                {activeMember.bio}
-              </p>
-              <button 
-                onClick={() => onNavigate('contact')} 
-                className="flex items-center gap-2 bg-[#ff4d00] hover:bg-[#ff5e1a] text-white px-6 py-3 rounded text-xs font-bold tracking-wider uppercase transition-colors shadow-lg shadow-[#ff4d00]/20"
-              >
-                NOUS CONTACTER <Plus className="w-4 h-4" />
-              </button>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-      )}
     </section>
   );
 };
