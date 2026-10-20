@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Coffee, Monitor, User, Calendar, ArrowRight, Eye, Image as ImageIcon } from 'lucide-react';
 
-import agencyInteriorImg from '../assets/images/agency_interior.webp';
-
 interface ShowroomModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -75,32 +73,22 @@ export const ShowroomModal: React.FC<ShowroomModalProps> = ({ isOpen, onClose, o
                 </div>
               </div>
 
-              {/* Viewer Area */}
-              {viewMode === '360' ? (
-                <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-xl overflow-hidden bg-zinc-900 border border-white/10 shadow-inner">
-                  <iframe
-                    src="https://www.klapty.com/tour/PlF05v7VZn"
-                    className="w-full h-full border-0"
-                    allowFullScreen
-                    title="Visite virtuelle du showroom"
-                  ></iframe>
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 gap-4">
-                  {/* Photo du showroom retirée (fichier corrompu) : la photo de la devanture viendra la remplacer. */}
-                  <div className="group relative rounded-xl overflow-hidden border border-white/10 aspect-[16/10] bg-zinc-900">
-                    <img loading="lazy" decoding="async"
-                      src={agencyInteriorImg}
-                      alt="Espace accueil et salle de code"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <span className="absolute bottom-3 left-3 text-xs font-bold text-white uppercase tracking-wider">
-                      Accueil & Salle de code
-                    </span>
-                  </div>
-                </div>
-              )}
+              {/* Viewer Area : visite 360° et galerie en cours de réalisation (photos réelles à venir) */}
+              <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-xl overflow-hidden bg-zinc-900 border border-white/10 flex flex-col items-center justify-center text-center px-6">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,77,0,0.12),transparent_65%)] pointer-events-none" />
+                {viewMode === '360'
+                  ? <Eye className="relative w-10 h-10 text-[#ff4d00] mb-4" strokeWidth={1.5} />
+                  : <ImageIcon className="relative w-10 h-10 text-[#ff4d00] mb-4" strokeWidth={1.5} />}
+                <span className="relative inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#ff4d00]/40 bg-[#ff4d00]/10 text-[#ff4d00] text-[11px] font-bold uppercase tracking-[0.2em] mb-3">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#ff4d00] animate-pulse" /> En cours
+                </span>
+                <p className="relative text-white font-bold text-lg md:text-xl uppercase tracking-wide">
+                  {viewMode === '360' ? 'Visite 360° en cours de réalisation' : 'Galerie photos en cours de réalisation'}
+                </p>
+                <p className="relative text-zinc-400 text-sm mt-2 max-w-md">
+                  Elle sera bientôt disponible. En attendant, venez découvrir l'agence sur rendez-vous.
+                </p>
+              </div>
 
               {/* Features List */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 py-2 border-y border-white/5">
@@ -124,22 +112,14 @@ export const ShowroomModal: React.FC<ShowroomModalProps> = ({ isOpen, onClose, o
 
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-1">
-                <a 
-                  href="https://www.klapty.com/tour/PlF05v7VZn" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex-1 bg-[#ff4d00] hover:bg-[#ff5e1a] text-black font-extrabold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,77,0,0.3)] text-sm tracking-wider uppercase"
-                >
-                  Visiter en plein écran <ArrowRight className="w-4 h-4" />
-                </a>
                 <button 
                   onClick={() => {
                     onClose();
                     if (onNavigateContact) onNavigateContact();
                   }}
-                  className="flex-1 bg-transparent hover:bg-white/5 border border-white/20 text-white font-bold py-3.5 px-6 rounded-xl transition-colors flex items-center justify-center text-sm uppercase tracking-wider"
+                  className="flex-1 bg-[#ff4d00] hover:bg-[#ff5e1a] text-black font-extrabold py-3.5 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,77,0,0.3)] text-sm tracking-wider uppercase"
                 >
-                  Prendre rendez-vous
+                  Prendre rendez-vous <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
