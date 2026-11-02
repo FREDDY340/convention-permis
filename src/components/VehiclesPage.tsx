@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Settings, Gauge, ArrowRight, Sparkles } from 'lucide-react';
 import formationBManuelle from '../assets/images/formation_b_manuelle.webp';
-import formationBAuto from '../assets/images/formation_b_auto.webp';
+import formationBAuto from '../assets/images/renault_5_electrique.webp';
 import formationMotoA2 from '../assets/images/formation_moto_a2.webp';
 import { VehicleScrollCinematic } from './VehicleScrollCinematic';
 
@@ -28,12 +28,12 @@ export const VehiclesPage: React.FC<VehiclesPageProps> = ({ onNavigate }) => {
     },
     {
       id: 'auto',
-      name: 'Renault 5',
+      name: 'Renault 5 électrique',
       type: 'Boîte Automatique',
-      folderName: 'clio_bleu',
+      folderName: '',
       fallbackImage: formationBAuto,
       formationTarget: 'permis-b-auto',
-      desc: "Apprentissage simplifié et sans stress. Concentrez-vous sur l'environnement et la sécurité grâce à une transmission automatique fluide et agréable.",
+      desc: "Apprentissage simplifié et sans stress sur une Renault 5 100 % électrique. Pas d'embrayage ni de passage de vitesses : concentrez-vous sur l'environnement et la sécurité.",
       features: [
         { icon: <Settings className="w-5 h-5" />, label: 'Boîte automatique' },
         { icon: <ShieldCheck className="w-5 h-5" />, label: 'Double commande auto-école' },
@@ -88,12 +88,31 @@ export const VehiclesPage: React.FC<VehiclesPageProps> = ({ onNavigate }) => {
             <div className="w-full lg:w-7/12 relative group">
               <div className="absolute inset-0 bg-gradient-to-tr from-[#ff4d00]/25 via-transparent to-transparent blur-3xl rounded-full opacity-40 group-hover:opacity-70 transition-opacity duration-700 pointer-events-none" />
               
-              <VehicleScrollCinematic
-                folderName={v.folderName}
-                totalFrames={120}
-                fallbackImage={v.fallbackImage}
-                badgeText={`${v.name} • 360°`}
-              />
+              {v.folderName ? (
+                <VehicleScrollCinematic
+                  folderName={v.folderName}
+                  totalFrames={60}
+                  fallbackImage={v.fallbackImage}
+                  badgeText={`${v.name} • 360°`}
+                />
+              ) : (
+                /* Renault 5 électrique : vraie photo (pas de séquence 360° disponible) */
+                <div
+                  className="relative w-full overflow-hidden rounded-2xl md:rounded-3xl bg-[#09090b] border border-white/10 shadow-2xl"
+                  style={{ aspectRatio: '16/10' }}
+                >
+                  <img loading="lazy" decoding="async"
+                    src={v.fallbackImage}
+                    alt={`${v.name}, véhicule de l'auto-école Convention Permis`}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10 shadow-lg">
+                    <span className="w-2 h-2 rounded-full bg-[#ff4d00]" />
+                    <span className="tracking-wide uppercase text-[11px] font-bold text-zinc-300">{v.name}</span>
+                  </div>
+                </div>
+              )}
             </div>
             
             {/* Vehicle Details */}

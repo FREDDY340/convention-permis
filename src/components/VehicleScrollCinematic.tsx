@@ -12,7 +12,7 @@ interface VehicleScrollCinematicProps {
 
 export const VehicleScrollCinematic: React.FC<VehicleScrollCinematicProps> = ({
   folderName,
-  totalFrames = 120,
+  totalFrames = 60,
   fallbackImage,
   className = '',
   badgeText = 'Vue 360° Interactive',
@@ -38,6 +38,18 @@ export const VehicleScrollCinematic: React.FC<VehicleScrollCinematicProps> = ({
     restDelta: 0.0001,
   });
 
+  // Frames are only downloaded when the block gets close to the viewport (page weight, audit 2026-11-02)
+  const [shouldLoad, setShouldLoad] = useState(false);
+  useEffect(() => {
+    if (!containerRef.current || shouldLoad) return;
+    const io = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setShouldLoad(true); io.disconnect(); } },
+      { rootMargin: '800px 0px' }
+    );
+    io.observe(containerRef.current);
+    return () => io.disconnect();
+  }, [shouldLoad]);
+
   const targetFrameRef = useRef(0);
   const currentFrameRef = useRef(0);
   const animationFrameId = useRef<number | null>(null);
@@ -50,6 +62,7 @@ export const VehicleScrollCinematic: React.FC<VehicleScrollCinematicProps> = ({
 
   // Preload frames progressively
   useEffect(() => {
+    if (!shouldLoad) return;
     let isMounted = true;
     const images: HTMLImageElement[] = [];
     imagesRef.current = images;
@@ -60,7 +73,7 @@ export const VehicleScrollCinematic: React.FC<VehicleScrollCinematicProps> = ({
 
     const frameUrl = (index: number) => {
       const padded = String(index).padStart(3, '0');
-      return `${import.meta.env.BASE_URL}frames/${folderName}/ezgif-frame-${padded}.jpg`;
+      return `${import.meta.env.BASE_URL}frames-hd/${folderName}/f-${padded}.webp`;
     };
 
     let loadedCount = 0;
@@ -93,7 +106,7 @@ export const VehicleScrollCinematic: React.FC<VehicleScrollCinematicProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [folderName, totalFrames]);
+  }, [folderName, totalFrames, shouldLoad]);
 
   // Intersection observer to pause render loop when offscreen
   useEffect(() => {

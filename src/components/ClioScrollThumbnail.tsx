@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useScroll, useSpring, useMotionValueEvent } from 'motion/react';
 
 interface ScrollThumbnailProps {
-  /** Public folder under /frames/ e.g. "clio_grise" or "clio_bleu" */
+  /** Folder under /frames-hd/ (60 WebP frames f-001.webp...), e.g. "clio_grise" or "motoA2" */
   folderName: string;
   totalFrames?: number;
   fallbackImage?: string;
@@ -11,7 +11,7 @@ interface ScrollThumbnailProps {
 
 export const ClioScrollThumbnail: React.FC<ScrollThumbnailProps> = ({
   folderName,
-  totalFrames = 120,
+  totalFrames = 60,
   fallbackImage,
   className = '',
 }) => {
@@ -33,12 +33,25 @@ export const ClioScrollThumbnail: React.FC<ScrollThumbnailProps> = ({
     restDelta: 0.0001,
   });
 
+  // Frames are only downloaded when the block gets close to the viewport (page weight, audit 2026-11-02)
+  const [shouldLoad, setShouldLoad] = useState(false);
+  useEffect(() => {
+    if (!containerRef.current || shouldLoad) return;
+    const io = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setShouldLoad(true); io.disconnect(); } },
+      { rootMargin: '800px 0px' }
+    );
+    io.observe(containerRef.current);
+    return () => io.disconnect();
+  }, [shouldLoad]);
+
   const targetFrameRef = useRef(0);
   const currentFrameRef = useRef(0);
   const animationFrameId = useRef<number | null>(null);
   const mousePos = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
   useEffect(() => {
+    if (!shouldLoad) return;
     let isMounted = true;
     const images: HTMLImageElement[] = [];
     imagesRef.current = images;
@@ -48,7 +61,7 @@ export const ClioScrollThumbnail: React.FC<ScrollThumbnailProps> = ({
 
     const frameUrl = (index: number) => {
       const padded = String(index).padStart(3, '0');
-      return `${import.meta.env.BASE_URL}frames/${folderName}/ezgif-frame-${padded}.jpg`;
+      return `${import.meta.env.BASE_URL}frames-hd/${folderName}/f-${padded}.webp`;
     };
 
     const firstImg = new Image();
@@ -63,7 +76,7 @@ export const ClioScrollThumbnail: React.FC<ScrollThumbnailProps> = ({
     }
 
     return () => { isMounted = false; };
-  }, [folderName, totalFrames]);
+  }, [folderName, totalFrames, shouldLoad]);
 
   useEffect(() => {
     if (!containerRef.current) return;

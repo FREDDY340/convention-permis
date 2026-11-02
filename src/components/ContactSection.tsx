@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Phone, Mail, MapPin, Clock, ArrowRight, ShieldCheck, CheckCircle2, MessageCircle } from 'lucide-react';
 import type { LegalTab } from './LegalModal';
 import { sendLead } from '../lib/sendLead';
+import { CONSENT_EVENT, getMapsConsent, setMapsConsent } from '../lib/consent';
 import { CALLBACK_DELAY, CONTACT_EMAIL, FORMATION_LABELS, PHONE_DISPLAY, PHONE_TEL, STUDENT_DISCOUNT, WHATSAPP_URL, formatEuros } from '../data/tarifs';
 
 interface ContactSectionProps {
@@ -12,6 +13,13 @@ interface ContactSectionProps {
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormation, onOpenLegal }) => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [mapsOk, setMapsOk] = useState(false);
+  useEffect(() => {
+    setMapsOk(getMapsConsent());
+    const onChange = (e: Event) => setMapsOk(Boolean((e as CustomEvent).detail?.maps));
+    window.addEventListener(CONSENT_EVENT, onChange);
+    return () => window.removeEventListener(CONSENT_EVENT, onChange);
+  }, []);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -326,7 +334,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
             variants={itemVariants}
             className="lg:col-span-12 bg-[#0f0f11] border border-white/5 rounded-2xl overflow-hidden shadow-xl h-[300px] lg:h-[400px] relative group"
           >
-            {/* Google Maps Iframe */}
+            {/* Google Maps Iframe : chargée uniquement après consentement (contenu tiers) */}
+            {mapsOk ? (
             <iframe
               title="Carte Convention Permis"
               src="https://maps.google.com/maps?q=122%20rue%20de%20l'Abbé%20Groult,%2075015%20Paris&t=&z=15&ie=UTF8&iwloc=&output=embed"
@@ -336,6 +345,30 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-6 text-center bg-[#0f0f11]">
+                <p className="text-sm text-zinc-300 max-w-md">
+                  Agence : 122 rue de l'Abbé Groult, 75015 Paris. La carte est fournie par Google Maps, qui peut déposer des cookies.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setMapsConsent(true)}
+                    className="px-5 py-2.5 rounded-xl bg-[#ff4d00] hover:bg-[#ff5e1a] text-white text-sm font-bold transition-colors"
+                  >
+                    Afficher la carte
+                  </button>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=122%20rue%20de%20l'Abb%C3%A9%20Groult%2075015%20Paris"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-5 py-2.5 rounded-xl border border-white/15 text-zinc-200 text-sm font-semibold hover:border-white/40 transition-colors"
+                  >
+                    Ouvrir dans Google Maps
+                  </a>
+                </div>
+              </div>
+            )}
             
             {/* Vignette overlay for map integration */}
             <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_40px_rgba(15,15,17,0.8)]"></div>

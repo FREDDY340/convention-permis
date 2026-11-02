@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, ArrowRight, Sparkles, Clock } from 'lucide-react';
 
 import formationBManuelle from '../assets/images/formation_b_manuelle.webp';
-import formationBAuto from '../assets/images/formation_b_auto.webp';
+import formationBAuto from '../assets/images/renault_5_electrique.webp';
 import formationConduiteAccompagnee from '../assets/images/formation_conduite_accompagnee.webp';
 import formationMotoA2 from '../assets/images/formation_moto_a2.webp';
 import codeRouteImg from '../assets/images/code_route.webp';

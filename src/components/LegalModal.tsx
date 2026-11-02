@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ShieldCheck, FileText, Cookie, Check, Sparkles } from 'lucide-react';
+import { getMapsConsent, setMapsConsent } from '../lib/consent';
 
 export type LegalTab = 'mentions' | 'privacy' | 'cookies';
 
@@ -16,18 +17,19 @@ export const LegalModal: React.FC<LegalModalProps> = ({
   onClose,
 }) => {
   const [activeTab, setActiveTab] = useState<LegalTab>(initialTab);
-  const [analyticsCookies, setAnalyticsCookies] = useState(true);
-  const [marketingCookies, setMarketingCookies] = useState(false);
+  const [mapsConsent, setMapsConsentState] = useState(false);
   const [savedCookies, setSavedCookies] = useState(false);
 
   useEffect(() => {
     if (isOpen && initialTab) {
       setActiveTab(initialTab);
       setSavedCookies(false);
+      setMapsConsentState(getMapsConsent());
     }
   }, [isOpen, initialTab]);
 
   const handleSaveCookies = () => {
+    setMapsConsent(mapsConsent);
     setSavedCookies(true);
     setTimeout(() => {
       onClose();
@@ -168,38 +170,66 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                   <section className="space-y-2">
                     <h3 className="text-white font-bold text-base flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
-                      1. Protection des données personnelles (RGPD)
+                      1. Responsable du traitement
                     </h3>
                     <p>
-                      Convention Permis s'engage à protéger la vie privée de ses candidats et visiteurs conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés.
+                      Les données personnelles sont traitées par <strong>Convention Permis</strong>, SAS au capital de 20 000 €, siège social 221 rue de la Convention, 75015 Paris, conformément au Règlement général sur la protection des données (RGPD) et à la loi Informatique et Libertés. Contact : <a href="mailto:contact@conventionpermis.fr" className="text-[#ff4d00] hover:underline">contact@conventionpermis.fr</a>.
                     </p>
                   </section>
 
                   <section className="space-y-2">
                     <h3 className="text-white font-bold text-base flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
-                      2. Données collectées
+                      2. Données collectées sur ce site
                     </h3>
                     <p>
-                      Dans le cadre de votre formation au permis de conduire ou de vos demandes de contact, nous collectons :
+                      Le formulaire de contact recueille uniquement : nom, prénom, adresse e-mail, téléphone, formation souhaitée, statut étudiant et votre message.
                     </p>
                     <ul className="list-disc list-inside space-y-1 text-zinc-400 pl-2">
-                      <li>Nom, prénom, date de naissance, adresse postale</li>
-                      <li>Coordonnées (numéro de téléphone, adresse email)</li>
-                      <li>Données nécessaires à l'enregistrement ANTS et livret d'apprentissage</li>
+                      <li><strong>Finalité :</strong> répondre à votre demande et vous recontacter.</li>
+                      <li><strong>Base légale :</strong> mesures précontractuelles prises à votre demande (article 6.1.b du RGPD).</li>
+                      <li><strong>Durée de conservation :</strong> 3 ans maximum après le dernier contact.</li>
                     </ul>
+                  </section>
+
+                  <section className="space-y-2">
+                    <h3 className="text-white font-bold text-base flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+                      3. Données collectées lors de l'inscription en agence
+                    </h3>
                     <p>
-                      Les demandes envoyées par le formulaire de contact (nom, prénom, e-mail, téléphone, formation souhaitée, statut étudiant, message) sont transmises par e-mail à Convention Permis via le service FormSubmit. Elles servent uniquement à vous recontacter et sont conservées au maximum 3 ans après le dernier contact.
+                      Si vous vous inscrivez à une formation, l'agence recueille en plus les informations nécessaires à votre dossier : identité, date de naissance, adresse postale et données requises pour l'enregistrement auprès de l'ANTS et pour le livret d'apprentissage. Ces données ne sont pas collectées par le site.
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-zinc-400 pl-2">
+                      <li><strong>Finalité :</strong> gestion de votre formation et de votre dossier d'examen.</li>
+                      <li><strong>Base légale :</strong> exécution du contrat de formation et respect des obligations légales.</li>
+                      <li><strong>Durée de conservation :</strong> pendant la formation, puis pendant les durées imposées par la réglementation.</li>
+                    </ul>
+                  </section>
+
+                  <section className="space-y-2">
+                    <h3 className="text-white font-bold text-base flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
+                      4. Destinataires et transferts hors de l'Union européenne
+                    </h3>
+                    <p>
+                      Vos données sont destinées au seul personnel habilité de Convention Permis et, pour l'inscription, aux services de l'État compétents (ANTS). Elles ne sont jamais vendues.
+                    </p>
+                    <p>
+                      Les messages du formulaire sont acheminés par e-mail par le service <strong>FormSubmit</strong>, et le site est hébergé par <strong>GitHub, Inc.</strong> (GitHub Pages). Ces prestataires sont établis aux États-Unis : les données transmises par le formulaire et les données techniques de connexion transitent donc hors de l'Union européenne.
                     </p>
                   </section>
 
                   <section className="space-y-2">
                     <h3 className="text-white font-bold text-base flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#ff4d00]"></span>
-                      3. Vos droits
+                      5. Vos droits
                     </h3>
                     <p>
-                      Vous disposez d’un droit d’accès, de rectification, de suppression et de portabilité de vos données. Pour exercer ce droit, contactez-nous à : <a href="mailto:contact@conventionpermis.fr" className="text-[#ff4d00] hover:underline">contact@conventionpermis.fr</a>.
+                      Vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de vos données. Pour les exercer, écrivez à <a href="mailto:contact@conventionpermis.fr" className="text-[#ff4d00] hover:underline">contact@conventionpermis.fr</a> ou à Convention Permis, 221 rue de la Convention, 75015 Paris. Une réponse vous sera apportée dans un délai d'un mois.
+                    </p>
+                    <p>
+                      Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de la CNIL (<a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" className="text-[#ff4d00] hover:underline">www.cnil.fr</a>).
                     </p>
                   </section>
                 </div>
@@ -208,19 +238,19 @@ export const LegalModal: React.FC<LegalModalProps> = ({
               {activeTab === 'cookies' && (
                 <div className="space-y-6">
                   <p className="text-zinc-300">
-                    Nous utilisons des cookies pour assurer le bon fonctionnement du site, mesurer l'audience et vous offrir la meilleure expérience utilisateur possible.
+                    Ce site n'utilise <strong>aucun cookie de mesure d'audience ni aucun cookie publicitaire</strong>. Seule la carte Google Maps de la page Contact, service tiers, peut déposer des cookies : elle ne s'affiche qu'avec votre accord.
                   </p>
 
                   <div className="space-y-4">
-                    {/* Cookies essentiels */}
+                    {/* Fonctionnement */}
                     <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex items-start justify-between gap-4">
                       <div>
                         <div className="flex items-center gap-2">
-                          <h4 className="text-white font-bold">Cookies essentiels</h4>
+                          <h4 className="text-white font-bold">Fonctionnement du site</h4>
                           <span className="px-2 py-0.5 rounded text-[10px] bg-green-500/20 text-green-400 font-semibold uppercase">Requis</span>
                         </div>
                         <p className="text-xs text-zinc-400 mt-1">
-                          Nécessaires au fonctionnement technique du site, à la navigation fluide et à la sécurité de vos sessions.
+                          Aucun cookie n'est déposé. Votre choix ci-dessous est simplement mémorisé dans le stockage local de votre navigateur.
                         </p>
                       </div>
                       <input
@@ -231,34 +261,18 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                       />
                     </div>
 
-                    {/* Mesure d'audience */}
+                    {/* Contenus tiers */}
                     <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex items-start justify-between gap-4">
                       <div>
-                        <h4 className="text-white font-bold">Mesure d'audience anonyme</h4>
+                        <h4 className="text-white font-bold">Carte Google Maps (contenu tiers)</h4>
                         <p className="text-xs text-zinc-400 mt-1">
-                          Permet d'analyser anonymement le trafic afin d'optimiser l'expérience et la rapidité du site.
+                          Affiche le plan d'accès à l'agence. Google peut alors déposer des cookies et recevoir votre adresse IP. Désactivé par défaut.
                         </p>
                       </div>
                       <input
                         type="checkbox"
-                        checked={analyticsCookies}
-                        onChange={(e) => setAnalyticsCookies(e.target.checked)}
-                        className="mt-1 w-5 h-5 accent-[#ff4d00] rounded cursor-pointer"
-                      />
-                    </div>
-
-                    {/* Personnalisation & réseaux */}
-                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 flex items-start justify-between gap-4">
-                      <div>
-                        <h4 className="text-white font-bold">Cookies marketing & multimédia</h4>
-                        <p className="text-xs text-zinc-400 mt-1">
-                          Utilisés pour l'intégration des vidéos showroom et des fonctionnalités interactives de nos réseaux sociaux.
-                        </p>
-                      </div>
-                      <input
-                        type="checkbox"
-                        checked={marketingCookies}
-                        onChange={(e) => setMarketingCookies(e.target.checked)}
+                        checked={mapsConsent}
+                        onChange={(e) => setMapsConsentState(e.target.checked)}
                         className="mt-1 w-5 h-5 accent-[#ff4d00] rounded cursor-pointer"
                       />
                     </div>

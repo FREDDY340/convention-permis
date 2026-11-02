@@ -12,13 +12,11 @@ import {
 } from 'lucide-react';
 
 import formationBManuelle from '../assets/images/formation_b_manuelle.webp';
-import formationBAuto from '../assets/images/formation_b_auto.webp';
+import formationBAuto from '../assets/images/renault_5_electrique.webp';
 import formationConduiteAccompagnee from '../assets/images/formation_conduite_accompagnee.webp';
 import formationMotoA2 from '../assets/images/formation_moto_a2.webp';
 import formationBManuelleStatic from '../assets/images/formation_b_manuelle.webp';
-import formationBAutoStatic from '../assets/images/formation_b_auto.webp';
 import formationMotoA2Static from '../assets/images/formation_moto_a2.webp';
-import formationConduiteAccompagneeStatic from '../assets/images/formation_conduite_accompagnee.webp';
 import { ClioScrollThumbnail } from './ClioScrollThumbnail';
 import { FORFAITS, formatEuros, ACCELERATED_PACK, ACCELERATED_PACK_NOTE, STUDENT_PROOF_NOTE } from '../data/tarifs';
 
@@ -67,7 +65,7 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
     {
       icon: <UserCheck className="w-8 h-8 text-[#ff4d00]" />,
       title: 'Moniteurs formés',
-      desc: "Des formateurs diplômés d'Etat, pédagogues et engagés.",
+      desc: "Des formateurs diplômés d'État, pédagogues et engagés.",
     },
     {
       icon: <CalendarDays className="w-8 h-8 text-[#ff4d00]" />,
@@ -77,7 +75,7 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
     {
       icon: <CreditCard className="w-8 h-8 text-[#ff4d00]" />,
       title: 'Paiement facilité',
-      desc: 'Régler votre formation en 3 ou 4 fois selon les conditions applicables.',
+      desc: 'Réglez votre formation en 3 ou 4 fois selon les conditions applicables.',
     },
     {
       icon: <Timer className="w-8 h-8 text-[#ff4d00]" />,
@@ -110,10 +108,10 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
       image: formationBAuto,
       title: 'Permis B\nBoîte automatique',
       features: [
-        'Apprentissage plus fluide',
-        'Caméra de recul',
-        'Cockpit digital',
-        'Véhicule : Renault 5',
+        'Évaluation initiale personnalisée',
+        'Code en ligne illimité',
+        'Véhicule : Renault 5 électrique',
+        'Caméra de recul et cockpit digital',
         'Passerelle possible vers la boîte manuelle',
       ],
     },
@@ -160,7 +158,7 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
             variants={itemVariants}
             className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-center tracking-tight text-white"
           >
-            La Touche Convention...
+            La Touche Convention
           </motion.h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
             {features.map((feature, idx) => (
@@ -209,28 +207,14 @@ export const FormationsSection: React.FC<FormationsSectionProps> = ({
                   {formation.id === 'permis-b-meca' ? (
                     <ClioScrollThumbnail
                       folderName="clio_grise"
-                      totalFrames={120}
+                      totalFrames={60}
                       fallbackImage={formationBManuelleStatic}
-                      className="w-full h-full"
-                    />
-                  ) : formation.id === 'permis-b-auto' ? (
-                    <ClioScrollThumbnail
-                      folderName="clio_bleu"
-                      totalFrames={120}
-                      fallbackImage={formationBAutoStatic}
-                      className="w-full h-full"
-                    />
-                  ) : formation.id === 'conduite-accompagnee' ? (
-                    <ClioScrollThumbnail
-                      folderName="conduite_accompagnee"
-                      totalFrames={120}
-                      fallbackImage={formationConduiteAccompagneeStatic}
                       className="w-full h-full"
                     />
                   ) : formation.id === 'moto-a2' ? (
                     <ClioScrollThumbnail
                       folderName="motoA2"
-                      totalFrames={120}
+                      totalFrames={60}
                       fallbackImage={formationMotoA2Static}
                       className="w-full h-full"
                     />

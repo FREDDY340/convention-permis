@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 import formationBManuelle from '../assets/images/formation_b_manuelle.webp';
-import formationBAuto from '../assets/images/formation_b_auto.webp';
+import formationBAuto from '../assets/images/renault_5_electrique.webp';
 import formationConduiteAccompagnee from '../assets/images/formation_conduite_accompagnee.webp';
 import formationMotoA2 from '../assets/images/formation_moto_a2.webp';
 import clioPic from '../assets/images/renault_clio.webp';
@@ -95,8 +95,8 @@ export const FORMATIONS_DETAILS: Record<FormationId, FormationData> = {
     subtitle: 'Conduisez plus sereinement avec moins d\'heures obligatoires',
     duration: '13h minimum réglementaires',
     minAge: '17 ans (examen dès 17 ans)',
-    vehicle: 'Renault 5 (boîte automatique)',
-    vehicleImage: clioPic,
+    vehicle: 'Renault 5 électrique (boîte automatique)',
+    vehicleImage: formationBAuto,
     heroImage: formationBAuto,
     description: "Le permis BEA (Boîte d'Embrayage Automatique) permet un apprentissage plus rapide et plus fluide en supprimant la gestion de l'embrayage. Idéal pour réduire le stress au volant. Une simple passerelle de 7h sans examen permet de le convertir en permis B manuel après 6 mois !",
     objectives: [
