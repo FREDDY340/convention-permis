@@ -216,7 +216,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({
                       Vos données sont destinées au seul personnel habilité de Convention Permis et, pour l'inscription, aux services de l'État compétents (ANTS). Elles ne sont jamais vendues.
                     </p>
                     <p>
-                      Les messages du formulaire sont acheminés par e-mail par le service <strong>FormSubmit</strong>, et le site est hébergé par <strong>GitHub, Inc.</strong> (GitHub Pages). Ces prestataires sont établis aux États-Unis : les données transmises par le formulaire et les données techniques de connexion transitent donc hors de l'Union européenne.
+                      Les messages du formulaire sont envoyés par e-mail depuis un serveur hébergé par <strong>LWS</strong> (hébergeur établi en France) et géré par notre prestataire technique, sans être conservés sur ce serveur. Pour bloquer les envois abusifs, votre adresse IP y est seulement comptée sous forme d'empreinte, effacée sous deux heures. Le site est hébergé par <strong>GitHub, Inc.</strong> (GitHub Pages), établi aux États-Unis : les données techniques de connexion au site transitent donc hors de l'Union européenne.
                     </p>
                   </section>
 

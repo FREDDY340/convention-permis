@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Phone, Mail, MapPin, Clock, ArrowRight, ShieldCheck, CheckCircle2, MessageCircle } from 'lucide-react';
 import type { LegalTab } from './LegalModal';
-import { sendLead } from '../lib/sendLead';
+import { LeadError, sendLead } from '../lib/sendLead';
 import { CONSENT_EVENT, getMapsConsent, setMapsConsent } from '../lib/consent';
 import { CALLBACK_DELAY, CONTACT_EMAIL, FORMATION_LABELS, PHONE_DISPLAY, PHONE_TEL, STUDENT_DISCOUNT, WHATSAPP_URL, formatEuros } from '../data/tarifs';
 
@@ -13,6 +13,8 @@ interface ContactSectionProps {
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormation, onOpenLegal }) => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [siteWeb, setSiteWeb] = useState(''); // champ piège anti-robots, invisible pour un visiteur
+  const [errMsg, setErrMsg] = useState('');
   const [mapsOk, setMapsOk] = useState(false);
   useEffect(() => {
     setMapsOk(getMapsConsent());
@@ -46,8 +48,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('sending');
+    setErrMsg('');
     try {
       await sendLead(
+        'contact',
         {
           Prénom: formData.firstName,
           Nom: formData.lastName,
@@ -56,12 +60,12 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
           Formation: FORMATION_LABELS[formData.formation] ?? formData.formation,
           Étudiant: formData.student,
           Message: formData.message,
-          _replyto: formData.email,
         },
-        `Nouvelle demande site : ${formData.firstName} ${formData.lastName}`
+        siteWeb
       );
       setStatus('sent');
-    } catch {
+    } catch (err) {
+      setErrMsg(err instanceof LeadError ? err.message : '');
       setStatus('error');
     }
   };
@@ -113,7 +117,17 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
                 <p className="text-zinc-300 text-sm">Un conseiller vous recontactera {CALLBACK_DELAY}. Besoin d'une réponse tout de suite ? Appelez le <a href={`tel:${PHONE_TEL}`} className="text-[#ff4d00] font-semibold">{PHONE_DISPLAY}</a>.</p>
               </div>
             ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-5 relative">
+              <input
+                type="text"
+                name="site_web"
+                value={siteWeb}
+                onChange={(e) => setSiteWeb(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] w-px h-px opacity-0"
+              />
               <motion.div variants={itemVariants} className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div className="space-y-1.5">
                   <label className="text-sm font-medium text-zinc-300 flex items-center gap-1">
@@ -244,7 +258,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ selectedFormatio
 
               {status === 'error' && (
                 <p role="alert" className="text-sm text-red-400">
-                  L'envoi n'a pas abouti. Réessayez, ou contactez-nous au <a href={`tel:${PHONE_TEL}`} className="underline">{PHONE_DISPLAY}</a> ou sur <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="underline">WhatsApp</a>.
+                  {errMsg ? `${errMsg} ` : "L'envoi n'a pas abouti. Réessayez, ou contactez-nous"}{errMsg ? 'Vous pouvez aussi nous joindre' : ''} au <a href={`tel:${PHONE_TEL}`} className="underline">{PHONE_DISPLAY}</a> ou sur <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="underline">WhatsApp</a>.
                 </p>
               )}
 

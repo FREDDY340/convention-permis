@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, Send, CheckCircle2, Mail, MessageSquare, User, Phone } from 'lucide-react';
-import { sendLead } from '../lib/sendLead';
+import { LeadError, sendLead } from '../lib/sendLead';
 import { CALLBACK_DELAY, PHONE_DISPLAY, PHONE_TEL, STUDENT_DISCOUNT, formatEuros } from '../data/tarifs';
 
 interface ContactModalProps {
@@ -12,6 +12,8 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState(false);
+  const [siteWeb, setSiteWeb] = useState(''); // champ piège anti-robots, invisible pour un visiteur
+  const [errMsg, setErrMsg] = useState('');
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -27,8 +29,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     e.preventDefault();
     setSending(true);
     setError(false);
+    setErrMsg('');
     try {
       await sendLead(
+        'evaluation',
         {
           Nom: formState.name,
           Email: formState.email,
@@ -36,12 +40,12 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
           Formation: formState.formation,
           Étudiant: formState.student,
           Message: formState.message,
-          _replyto: formState.email,
         },
-        `Demande d'évaluation site : ${formState.name}`
+        siteWeb
       );
       setSubmitted(true);
-    } catch {
+    } catch (err) {
+      setErrMsg(err instanceof LeadError ? err.message : '');
       setError(true);
     } finally {
       setSending(false);
@@ -95,7 +99,17 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 relative">
+              <input
+                type="text"
+                name="site_web"
+                value={siteWeb}
+                onChange={(e) => setSiteWeb(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="absolute -left-[9999px] w-px h-px opacity-0"
+              />
               <div>
                 <label className="block text-[11px] font-semibold uppercase tracking-wider text-zinc-500 mb-1.5">
                   Nom & Prénom
@@ -194,7 +208,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
 
               {error && (
                 <p role="alert" className="text-sm text-red-600">
-                  L'envoi n'a pas abouti. Réessayez ou appelez le <a href={`tel:${PHONE_TEL}`} className="underline">{PHONE_DISPLAY}</a>.
+                  {errMsg ? `${errMsg} Vous pouvez aussi appeler le` : "L'envoi n'a pas abouti. Réessayez ou appelez le"} <a href={`tel:${PHONE_TEL}`} className="underline">{PHONE_DISPLAY}</a>.
                 </p>
               )}
 
